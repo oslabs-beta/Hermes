@@ -1,12 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import SideBar from './SideBar'
+
 
 
 const App =()=>{
 
     return(
-        <div>
-<h1>hi</h1>
+        <div className="app-container">
+            
+            <header className="title"><h1>Hermes</h1></header>
+            <nav><SideBar/></nav>
+
         </div>
     )
 }
