@@ -1,2 +1,7 @@
 import { atom } from "recoil";
-import React from 'react'
+
+
+export const AlertsState = atom({
+    key: 'AlertsState',
+    default: [],
+  });

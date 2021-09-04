@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open --hot \" \" nodemon server/server.js\""
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js\""
   },
   "nodemonConfig": {
     "ignore": [
@@ -24,9 +24,6 @@
     "url": "https://github.com/oslabs-beta/hermes/issues"
   },
   "homepage": "https://github.com/oslabs-beta/hermes#readme",
-  "devDependencies": {
-    "@snowpack/plugin-sass": "^1.4.0" 
-  },
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",
