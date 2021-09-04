@@ -9,34 +9,34 @@ import Visualizer from "./Visualizer";
 
 const App =()=>{
 
-    return(
-        <Router>
-            <div className="app-container">
-                <SideBar/>
+  return(
+    <Router>
+      <div className="app-container">
+        <SideBar/>
            
-                <Switch>
-                    <Route exact path="/">
+        <Switch>
+          <Route exact path="/">
             
-                        <HomePage/>
-                    </Route>
-                    <Route exact path="/logs">
-                        <LogsContainer/>
-                    </Route>
+            <HomePage/>
+          </Route>
+          <Route exact path="/logs">
+            <LogsContainer/>
+          </Route>
 
-                    <Route exact path="/visualizer">
-                        <Visualizer/>
-                    </Route>
+          <Route exact path="/visualizer">
+            <Visualizer/>
+          </Route>
 
-                    <Route exact path="/alerts">
-                        <AlertsContainer/>
-                    </Route>
-                    <Route exact path="/indexes">
-                        <CreateIndex/>
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
-    );
+          <Route exact path="/alerts">
+            <AlertsContainer/>
+          </Route>
+          <Route exact path="/indexes">
+            <CreateIndex/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 };
 
 export default App;

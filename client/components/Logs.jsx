@@ -3,11 +3,11 @@ import React from "react";
 
 const Logs = () =>{
 
-    return(
-        <div className="logs-container">
+  return(
+    <div className="logs-container">
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Logs;

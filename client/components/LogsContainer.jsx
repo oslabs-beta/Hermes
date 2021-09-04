@@ -3,16 +3,16 @@ import React, {useState} from "react";
 import Logs from "./Logs";
 import useAxios from "../hooks/useAxios";
 const LogsContainer = () =>{
-    // const logs = useAxios()
+  // const logs = useAxios()
 
-    return(
-        <div>
-            <header className="logs-display-header">
-                <Logs/>
-            </header>
+  return(
+    <div>
+      <header className="logs-display-header">
+        <Logs/>
+      </header>
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default LogsContainer;

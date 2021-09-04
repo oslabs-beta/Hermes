@@ -4,14 +4,14 @@ import React from "react";
 const Visualizer = () =>{
   
 
-    return(
-        <div>
-            <header className="visualizer-header">
+  return(
+    <div>
+      <header className="visualizer-header">
        
-            </header>
+      </header>
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Visualizer;

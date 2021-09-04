@@ -3,11 +3,11 @@ import React from "react";
 
 const Alerts = () =>{
 
-    return(
-        <div className="alerts-container">
+  return(
+    <div className="alerts-container">
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Alerts;

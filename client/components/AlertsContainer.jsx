@@ -2,16 +2,16 @@ import React from "react";
 import Alerts from "./Alerts";
 
 const AlertsContainer = () =>{
-    // const logs = useAxios()
+  // const logs = useAxios()
 
-    return(
-        <div>
-            <header className="alerts-display-header">
-                <Alerts/>
-            </header>
+  return(
+    <div>
+      <header className="alerts-display-header">
+        <Alerts/>
+      </header>
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default AlertsContainer;
