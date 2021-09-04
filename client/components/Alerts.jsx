@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 
 const Alerts = () =>{
@@ -7,7 +7,7 @@ const Alerts = () =>{
         <div className="alerts-container">
 
         </div>
-    )
-}
+    );
+};
 
 export default Alerts;

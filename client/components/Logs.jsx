@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 
 const Logs = () =>{
@@ -7,7 +7,7 @@ const Logs = () =>{
         <div className="logs-container">
 
         </div>
-    )
-}
+    );
+};
 
 export default Logs;

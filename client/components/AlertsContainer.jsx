@@ -1,5 +1,5 @@
-import React from 'react';
-import Alerts from './Alerts';
+import React from "react";
+import Alerts from "./Alerts";
 
 const AlertsContainer = () =>{
     // const logs = useAxios()
@@ -7,11 +7,11 @@ const AlertsContainer = () =>{
     return(
         <div>
             <header className="alerts-display-header">
-        <Alerts/>
+                <Alerts/>
             </header>
 
         </div>
-    )
-}
+    );
+};
 
 export default AlertsContainer;

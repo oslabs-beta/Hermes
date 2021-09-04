@@ -11,7 +11,7 @@ const CreateIndex = () =>{
             </header>
 
         </div>
-    )
-}
+    );
+};
 
 export default CreateIndex;

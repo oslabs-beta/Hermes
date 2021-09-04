@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 
 const Visualizer = () =>{
@@ -11,7 +11,7 @@ const Visualizer = () =>{
             </header>
 
         </div>
-    )
-}
+    );
+};
 
 export default Visualizer;
