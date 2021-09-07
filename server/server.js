@@ -3,14 +3,12 @@ const app = express();
 const path = require('path');
 
 const logsRouter = require('./routes/logsRouter.js');
-
+// parse incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  '/build/client/index.js/',
-  express.static(path.join(__dirname, '../build/client/index.js'))
-);
+// send bundle
+app.use('/build', express.static(path.join(__dirname, '../build/')));
+// send
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
