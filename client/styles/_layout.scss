@@ -1,0 +1,50 @@
+
+.app-container{
+    display: flex;
+    max-width: 120rem;
+    margin: 8rem auto;
+    background-color: var(--color-grey-light-2);
+    box-shadow: var(--box-shadow);
+    // min-height: 50rem;
+    flex-wrap: wrap;
+    // padding: 10rem
+}
+
+.header{
+    height: 7rem;
+    background-color: black;
+    border-bottom: var(--color-grey-light-2);
+    flex: 0 1 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // min-width: 200rem
+     
+     
+    
+
+}
+#navigation{
+    justify-self: flex-end;
+}
+
+.sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+
+    :link,
+    :visited{
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    border-radius: 10%;
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem;
+    color: #000;
+}
+
+    
+}
