@@ -18,7 +18,7 @@ const App =()=>{
         <h1>Hermes</h1>
       </header>
       <div className="app-container">
-        <SideBar/>
+        {false && <SideBar/>}
            
         <Switch>
           <Route exact path="/">

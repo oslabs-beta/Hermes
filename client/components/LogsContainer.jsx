@@ -291,20 +291,22 @@ const LogsContainer = () => {
   };
   const arr = obj.hits.hits;
   return (
-    <div>
-      <header className="logs-display-header">
+    <>
+      <div className='logs'>
+        <header className="logs-display-header">
 
 
-      </header>
+        </header>
 
-      <div className="logs-fields">
-        {arr.map(logs => {
-          return < Logs key={logs._id} time={logs['source'['@timestamp']]} index={logs._index}  />;
-        })}
+        <div className="logs-fields">
+          {arr.map(logs => {
+            return < Logs key={logs._id} time={logs['source'['@timestamp']]} index={logs._index}  />;
+          })}
         hey
-      </div>
+        </div>
 
-    </div>
+      </div>
+    </>
   );
 };
 

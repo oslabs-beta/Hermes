@@ -3,11 +3,13 @@
     display: flex;
     max-width: 120rem;
     margin: 8rem auto;
-    background-color: var(--color-grey-light-2);
+    background-color: white;
     box-shadow: var(--box-shadow);
     // min-height: 50rem;
     flex-wrap: wrap;
     // padding: 10rem
+    // background-image: linear-gradient(to right bottom, silver, grey);
+    border-radius: 5rem;
 }
 
 .header{
@@ -24,9 +26,7 @@
     
 
 }
-#navigation{
-    justify-self: flex-end;
-}
+// 
 
 .sidebar-nav{
     display: flex;
@@ -47,4 +47,23 @@
 }
 
     
+}
+
+// .features{
+// display: flex;
+// justify-self: flex-end;
+// color: gold;
+// font-size: 1.6rem;
+// }
+
+.home{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 9rem;
+    padding: 5rem;
+}
+
+
+.logs-container{
+    color: gold
 }
