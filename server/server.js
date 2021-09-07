@@ -8,7 +8,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // send bundle
 app.use('/build', express.static(path.join(__dirname, '../build/')));
-// send
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });

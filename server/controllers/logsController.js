@@ -4,7 +4,6 @@ const fetch = (...args) =>
 
 logsController.getLogsByIndex = (req, res, next) => {
   const index = req.query.index;
-  console.log('index', index);
   fetch(`http://localhost:9200/${index}/_search`)
     .then((data) => data.json())
     .then((logs) => {
@@ -14,7 +13,22 @@ logsController.getLogsByIndex = (req, res, next) => {
     .catch((error) => {
       console.log(error);
       return next(
-        'Error in logsController.getLogsByIndex. Check server logs for more information.'
+        'Error in logsController.getLogsByIndex: Check server logs for more information.'
+      );
+    });
+};
+
+logsController.getEsIndeces = (req, res, next) => {
+  fetch('http://localhost:9200/_aliases')
+    .then((data) => data.json())
+    .then((indices) => {
+      res.locals.indices = indices;
+      return next();
+    })
+    .catch((error) => {
+      console.log(error);
+      return next(
+        'Error in logsController.getESIndeces: Check server logs for more information.'
       );
     });
 };
