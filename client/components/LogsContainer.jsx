@@ -292,6 +292,13 @@ const LogsContainer = () => {
   const arr = obj.hits.hits;
   return (
     <>
+      <div className="filter-box">
+        <button type="button">add filter</button>
+        <select name="cars" id="cars">
+          <option value="filters">filters</option>
+          
+        </select>
+      </div>
       <div className='logs'>
         <header className="logs-display-header">
 

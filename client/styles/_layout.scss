@@ -1,6 +1,8 @@
 
 .app-container{
-    display: flex;
+    display: grid;
+    grid-template-rows: .5fr 1fr ;
+    gap: 2rem;
     max-width: 120rem;
     margin: 8rem auto;
     background-color: white;
@@ -63,6 +65,16 @@
     padding: 5rem;
 }
 
+
+.filter-box{
+    display: flex;
+    background-color: rgb(112, 96, 96);
+    border-radius: 3rem;
+    // outline: .05rem solid black;
+    align-items: center;
+    width: 100%;
+   
+}
 
 .logs-container{
     color: gold
