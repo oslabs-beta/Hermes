@@ -17,10 +17,17 @@ app.get('/', (req, res) => {
 
 app.use('/logs', logsRouter);
 
+//catch all route handler, handles request to an unknown route
+app.use((req, res) =>
+  res.status(404).send('The page you are looking for not exist.')
+);
+
 //gloabal error handler
 app.use((err, req, res, next) => {
   console.log(err);
-  return res.status(500).json(err);
+  return res
+    .status(500)
+    .send('Unknown error in middleware. See server logs for more information.');
 });
 
-app.listen(3000);
+app.listen(3000, () => console.log('Listening on port 3000'));
