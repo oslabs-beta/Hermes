@@ -17,4 +17,10 @@ app.get('/', (req, res) => {
 
 app.use('/logs', logsRouter);
 
+//gloabal error handler
+app.use((err, req, res, next) => {
+  console.log(err);
+  return res.status(500).json(err);
+});
+
 app.listen(3000);
