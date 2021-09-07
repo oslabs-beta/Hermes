@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+const logsRouter = require('./routes/logsRouter.js');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -12,5 +14,7 @@ app.use(
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
+
+app.use('/logs', logsRouter);
 
 app.listen(3000);
