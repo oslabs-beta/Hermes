@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import {logState} from '../atom';
 export const useAxios = (url) =>{
-  const [state, setState] = useState([]);
+  const [state, setState] = useRecoilState(logState);
   useEffect(() =>{
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();

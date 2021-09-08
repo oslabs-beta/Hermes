@@ -8,6 +8,7 @@ const LogsContainer = () => {
   const logs = useAxios('/logs/logsbyindex/?index=logstash-*');
   console.log(logs);
   
+  console.log(useRecoilValue(logState));
   // const [logs, setLogs] = useRecoilState(logS)
 
   // useEffect(() =>{
