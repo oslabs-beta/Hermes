@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/oslabs-beta/hermes#readme",
   "dependencies": {
+    "@toast-ui/react-chart": "^4.3.6",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "esbuild": "^0.12.25",
