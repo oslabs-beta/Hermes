@@ -17,8 +17,7 @@ const LogsContainer = () => {
   //     .then(res => console.log(res));
   // }, []);
 
-  
-          
+
   // const arr = logs.hits.hits;
   return (
     <>
@@ -35,7 +34,8 @@ const LogsContainer = () => {
 
         </header>
 
-        <div className="logs-fields">
+        <div  id="logs-container">
+          
           {logs.map(log => {
             return < Logs key={log._id} time={log['source'['@timestamp']]} index={log._index}  />;
           })}
@@ -46,5 +46,7 @@ const LogsContainer = () => {
     </>
   );
 };
+
+
 
 export default LogsContainer;
