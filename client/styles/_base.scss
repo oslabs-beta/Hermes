@@ -1,0 +1,44 @@
+:root{
+    //base website color scheme
+    --color-primary-light: #1E90FF;
+    --color-primary-dark: #00008B;
+    
+    //base colors for feature cards
+    --color-card-primary: #483D8B;
+
+    //text colors
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-primary-gold: #B8860B;
+
+    //shadows
+    --box-shadow: 0 2rem 5rem rgba(0,0,0,.2);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+body{
+    color: var(--color-grey-light-1);
+    background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+

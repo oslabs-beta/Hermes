@@ -6,31 +6,37 @@ import HomePage from "./HomePage";
 import AlertsContainer from "./AlertsContainer";
 import CreateIndex from "./CreateIndex";
 import Visualizer from "./Visualizer";
+import Nav from "./Nav";
 
 const App =()=>{
 
   return(
     <Router>
+     
+      <header className="header">
+        <Nav/>
+        <h1>Hermes</h1>
+      </header>
       <div className="app-container">
-        <SideBar/>
+        {false && <SideBar/>}
            
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/logs">
             
             <HomePage/>
           </Route>
-          <Route exact path="/logs">
+          <Route path="/">
             <LogsContainer/>
           </Route>
 
-          <Route exact path="/visualizer">
+          <Route path="/visualizer">
             <Visualizer/>
           </Route>
 
-          <Route exact path="/alerts">
+          <Route path="/alerts">
             <AlertsContainer/>
           </Route>
-          <Route exact path="/indexes">
+          <Route path="/indexes">
             <CreateIndex/>
           </Route>
         </Switch>

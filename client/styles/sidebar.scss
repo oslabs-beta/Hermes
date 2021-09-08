@@ -1,29 +1,8 @@
-*,
-*::after,
-*::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit; 
-}
-
-html{
-    font-size: 62.5%;
-    
-}
-
-body{
-    background-color: aquamarine;
-}
-
-.title{
-    display: flex;
-    justify-content: center;
-    font-size: 1.8rem
-}
-
 .sidebar-nav{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    
 
     :link,
     :visited{
@@ -31,12 +10,12 @@ body{
     text-decoration: none;
     padding: 1.5rem 4rem;
     display: inline-block;
-    border-radius: 10rem;
+    border-radius: 10%;
     transition: all .2s;
     position: relative;
     font-size: 1.6rem;
     color: #000;
 }
+
     
 }
-
