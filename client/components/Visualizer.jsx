@@ -20,6 +20,7 @@ const Visualizer = () => {
     });
     console.log('array of logs:', logsOnly);
     const regex = /info/i;
+    console.log(regex);
     const errorLogs = logsOnly.filter((hit) => {
       regex.test(hit.log);
     });
@@ -31,7 +32,7 @@ const Visualizer = () => {
   // console.log(errors);
 
   return (
-    <div>
+    <div className='visualizer-container'>
       <header className='visualizer-header'></header>
       <UserLineChart />
     </div>
