@@ -4,7 +4,7 @@ const fetch = (...args) =>
 
 logsController.getLogsByIndex = (req, res, next) => {
   const index = req.query.index;
-  fetch(`http://localhost:9200/${index}/_search`)
+  fetch(`http://localhost:9200/${index}/_search?q=*:8&size=10000`)
     .then((data) => data.json())
     .then((logs) => {
       res.locals.logs = logs;
