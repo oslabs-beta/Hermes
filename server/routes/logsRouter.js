@@ -8,5 +8,7 @@ router.get('/logsbyindex', logsController.getLogsByIndex, (req, res) => {
 router.get('/esindices', logsController.getEsIndeces, (req, res) => {
   return res.status(200).json(res.locals.indices);
 });
-
+router.get('/hourbuckets', logsController.getHourBuckets, (req, res) => {
+  return res.status(200).json(res.locals.hourBuckets);
+});
 module.exports = router;
