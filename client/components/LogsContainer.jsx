@@ -13,18 +13,19 @@ const LogsContainer = () => {
   
   console.log(useRecoilValue(logState));
 
-  const data1 = useRecoilValue(logState);
-
+  const data1 = JSON.parse(JSON.stringify(useRecoilValue(logState))) ;
+  console.log(data1);
   const data = [
     {id: 1, name: 'Editor', value: 5},
     {id: 2, name: 'Grid'},
-    {id: 3, name: 'Chart'}
+    {id: 3, name: 'Chart'},
+    {id: 4, name: 'Cart'}
   ];
   
   const columns = [
-    {name: 'id', header: 'ID'},
-    {name: 'name', header: 'Name'},
-    {name: 'value', header: 'Value'}
+    {name: '_id', header: 'ID'},
+    {name: '_index', header: 'index'},
+    {name: `_source["@timestamp"]`, header: 'Source'}
   ];
   // const [logs, setLogs] = useRecoilState(logS)
 
@@ -54,7 +55,7 @@ const LogsContainer = () => {
         <div  id="logs-container">
           
           <Grid
-            data={data}
+            data={data1}
             columns={columns}
             rowHeight={25}
             bodyHeight={100}
