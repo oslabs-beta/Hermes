@@ -19,10 +19,10 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/logs'>
+          <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path='/'>
+          <Route path='/logs'>
             <LogsContainer />
           </Route>
 
