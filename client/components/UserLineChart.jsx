@@ -32,7 +32,7 @@ const options = {
 };
 
 const containerStyle = {
-  width: '50vw',
+  width: '100%',
   height: '50rem',
 };
 

@@ -1,54 +1,54 @@
-
-.app-container{
-    display: grid;
-    grid-template-rows: .5fr 1fr ;
-    gap: 2rem;
-    max-width: 120rem;
-    margin: 8rem auto;
-    background-color: white;
-    box-shadow: var(--box-shadow);
-    // min-height: 50rem;
-    flex-wrap: wrap;
-    // padding: 10rem
-    // background-image: linear-gradient(to right bottom, silver, grey);
-    border-radius: 5rem;
+.app-container {
+  // display: grid;
+  // grid-template-rows: 0.5fr 1fr;
+  // gap: 2rem;
+  max-width: 120rem;
+  margin: 4rem auto;
+  background-color: var(--color-grey-light-3);
+  box-shadow: var(--box-shadow);
+  // min-height: 50rem;
+  flex-wrap: wrap;
+  // padding: 10rem
+  // background-image: linear-gradient(to right bottom, silver, grey);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header{
-    height: 7rem;
-    background-color: black;
-    border-bottom: var(--color-grey-light-2);
-    flex: 0 1 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // min-width: 200rem
-     
-     
-    
-
+.header {
+  height: 7rem;
+  background-color: var(--color-black);
+  border-bottom: var(--color-grey-light-2);
+  flex: 0 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // min-width: 200rem
+  h1 {
+    color: var(--color-primary-gold);
+    font-size: 4rem;
+    font-weight: 500;
+  }
 }
-// 
+//
 
-.sidebar-nav{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-    :link,
-    :visited{
+  :link,
+  :visited {
     text-transform: uppercase;
     text-decoration: none;
     padding: 1.5rem 4rem;
     border-radius: 10%;
-    transition: all .2s;
+    transition: all 0.2s;
     position: relative;
     font-size: 1.6rem;
     color: #000;
-}
-
-    
+  }
 }
 
 // .features{
@@ -58,24 +58,17 @@
 // font-size: 1.6rem;
 // }
 
-.home{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 9rem;
-    padding: 5rem;
+.home {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 9rem;
+  padding: 5rem;
 }
 
-
-.filter-box{
-    display: flex;
-    background-color: rgb(112, 96, 96);
-    border-radius: 3rem;
-    // outline: .05rem solid black;
-    align-items: center;
-    width: 100%;
-   
-}
-
-.logs-container{
-    color: gold
+.filter-box {
+  display: flex;
+  border-radius: 3px;
+  // outline: .05rem solid black;
+  align-items: center;
+  width: 100%;
 }
