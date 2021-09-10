@@ -40,7 +40,7 @@ const UserLineChart = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get('/logs/hourbuckets')
+      .get('/logs/hourbuckets?start=')
       .then((results) => {
         const buckets = results.data;
         const categories = buckets.map(

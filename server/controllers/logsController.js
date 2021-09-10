@@ -40,13 +40,15 @@ logsController.getHourBuckets = (req, res, next) => {
     this.setTime(this.getTime() + h * 60 * 60 * 1000);
     return this;
   };
+  const startTime = req.query.start;
+  const endTime = req.query.end;
   const ranges = [
     {
-      from: '2021-09-01T19:00:00.913Z',
-      to: new Date('2021-09-01T19:00:00.913Z').addHours(1).toISOString(),
+      from: startTime,
+      to: new Date(startTime).addHours(1).toISOString(),
     },
   ];
-  while (new Date(ranges[ranges.length - 1].to) < Date.now()) {
+  while (new Date(ranges[ranges.length - 1].to) < endTime) {
     ranges.push({
       from: ranges[ranges.length - 1].to,
       to: new Date(ranges[ranges.length - 1].to).addHours(1).toISOString(),
