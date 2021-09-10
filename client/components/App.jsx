@@ -25,11 +25,9 @@ const App = () => {
           <Route path='/logs'>
             <LogsContainer />
           </Route>
-
           <Route path='/visualizer'>
             <Visualizer />
           </Route>
-
           <Route path='/alerts'>
             <AlertsContainer />
           </Route>
