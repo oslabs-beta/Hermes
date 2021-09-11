@@ -20,7 +20,7 @@ logsController.getLogsByIndex = (req, res, next) => {
     });
 };
 
-logsController.getEsIndeces = (req, res, next) => {
+logsController.getEsIndices = (req, res, next) => {
   fetch('http://localhost:9200/_aliases')
     .then((data) => data.json())
     .then((indices) => {
@@ -30,7 +30,7 @@ logsController.getEsIndeces = (req, res, next) => {
     .catch((error) => {
       console.log(error);
       return next(
-        'Error in logsController.getESIndeces: Check server logs for more information.'
+        'Error in logsController.getESIndices: Check server logs for more information.'
       );
     });
 };
@@ -42,18 +42,18 @@ logsController.getHourBuckets = (req, res, next) => {
   };
   const startTime = req.query.start;
   const endTime = req.query.end;
-  const ranges = [
-    {
-      from: startTime,
-      to: new Date(startTime).addHours(1).toISOString(),
-    },
-  ];
-  while (new Date(ranges[ranges.length - 1].to) < endTime) {
-    ranges.push({
-      from: ranges[ranges.length - 1].to,
-      to: new Date(ranges[ranges.length - 1].to).addHours(1).toISOString(),
-    });
-  }
+  // const ranges = [
+  //   {
+  //     from: startTime,
+  //     to: new Date(startTime).addHours(1).toISOString(),
+  //   },
+  // ];
+  // while (new Date(ranges[ranges.length - 1].to) < endTime) {
+  //   ranges.push({
+  //     from: ranges[ranges.length - 1].to,
+  //     to: new Date(ranges[ranges.length - 1].to).addHours(1).toISOString(),
+  //   });
+  // }
 
   fetch('http://localhost:9200/logstash-*/_search?size=0', {
     method: 'POST',
@@ -61,11 +61,19 @@ logsController.getHourBuckets = (req, res, next) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      aggs: {
+      query: {
         range: {
-          date_range: {
+          '@timestamp': {
+            gte: req.query.start,
+            lte: req.query.end,
+          },
+        },
+      },
+      aggs: {
+        logs_over_time: {
+          date_histogram: {
             field: '@timestamp',
-            ranges: ranges,
+            fixed_interval: '1h',
           },
         },
       },
@@ -73,7 +81,7 @@ logsController.getHourBuckets = (req, res, next) => {
   })
     .then((data) => data.json())
     .then((results) => {
-      res.locals.hourBuckets = results.aggregations.range.buckets;
+      res.locals.hourBuckets = results.aggregations.logs_over_time.buckets;
       return next();
     })
     .catch((error) => {
