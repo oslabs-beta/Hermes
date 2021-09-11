@@ -34,20 +34,26 @@ const options = {
 const containerStyle = {
   width: '100%',
   height: '50rem',
+  borderRadius: '3px',
 };
 
 const UserLineChart = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get('/logs/hourbuckets')
+      .get('/logs/hourbuckets', {
+        params: {
+          start: 'now-1d/d',
+          end: 'now/d',
+        },
+      })
       .then((results) => {
         const buckets = results.data;
         const categories = buckets.map(
           (bucket) =>
-            new Date(bucket.from_as_string).toLocaleDateString() +
+            new Date(bucket.key_as_string).toLocaleDateString() +
             ' ' +
-            new Date(bucket.from_as_string).toLocaleTimeString()
+            new Date(bucket.key_as_string).toLocaleTimeString()
         );
         const seriesData = buckets.map((bucket) => bucket.doc_count);
         const series = [
