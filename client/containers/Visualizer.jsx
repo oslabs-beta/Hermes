@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import UserLineChart from './UserLineChart';
+import UserLineChart from '../components/UserLineChart';
 import axios from 'axios';
 import { useAxios } from '../hooks/useAxios';
 

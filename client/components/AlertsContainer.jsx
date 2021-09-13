@@ -7,9 +7,9 @@ const AlertsContainer = () =>{
   return(
     <div>
       <header className="alerts-display-header">
+    
         <Alerts/>
       </header>
-
     </div>
   );
 };
