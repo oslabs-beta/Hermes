@@ -11,4 +11,7 @@ router.get('/esindices', logsController.getEsIndices, (req, res) => {
 router.get('/hourbuckets', logsController.getHourBuckets, (req, res) => {
   return res.status(200).json(res.locals.hourBuckets);
 });
+router.get('/monitor', logsController.getMonitorResults, (req, res) => {
+  return res.status(200).json(res.locals.monitorResults);
+});
 module.exports = router;

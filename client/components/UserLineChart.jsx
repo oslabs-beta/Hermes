@@ -34,7 +34,6 @@ const options = {
 const containerStyle = {
   width: '100%',
   height: '50rem',
-  borderRadius: '3px',
 };
 
 const UserLineChart = () => {
@@ -43,7 +42,7 @@ const UserLineChart = () => {
     axios
       .get('/logs/hourbuckets', {
         params: {
-          start: 'now-1d/d',
+          start: 'now-14d/d',
           end: 'now/d',
         },
       })
@@ -66,10 +65,13 @@ const UserLineChart = () => {
       })
       .catch((error) => console.log('Error in Visualizer useEffect: ', error));
   }, []);
-  // const data = {};
 
   return (
-    data && <LineChart data={data} options={options} style={containerStyle} />
+    data && (
+      <div className='chart'>
+        <LineChart data={data} options={options} style={containerStyle} />
+      </div>
+    )
   );
 };
 
