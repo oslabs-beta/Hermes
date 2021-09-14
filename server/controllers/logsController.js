@@ -93,4 +93,46 @@ logsController.getHourBuckets = (req, res, next) => {
     });
 };
 
+logsController.getMonitorResults = (req, res, next) => {
+  const query = {
+    bool: {
+      must: [
+        {
+          match: {},
+        },
+        {
+          range: {
+            '@timestamp': {
+              gte: req.query.start,
+              lte: req.query.end,
+            },
+          },
+        },
+      ],
+    },
+  };
+  // match condition
+  query.bool.must[0].match[req.query.field] = req.query.value;
+  fetch(`http://localhost:9200/${req.query.index}/_search`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+    }),
+  })
+    .then((data) => data.json())
+    .then((results) => {
+      res.locals.monitorResults = results;
+      return next();
+    })
+    .catch((error) => {
+      console.log(error);
+      return next(
+        'Error in logsController.getMonitorResults: Check server logs for more information.'
+      );
+    });
+};
+
 module.exports = logsController;
