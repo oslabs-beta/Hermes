@@ -7,9 +7,9 @@ const Visualizer = () => {
   return (
     <div className='visualizer-container'>
       <header className='visualizer-header'></header>
-      {/* <UserLineChart /> */}
-      <MonitorButton />
-      <EditorContainer />
+      <UserLineChart />
+      {/* <MonitorButton />
+      <EditorContainer /> */}
     </div>
   );
 };
