@@ -1,5 +1,6 @@
 import React from "react";
 import Alerts from "./Alerts";
+import sendEmail from "../../server/email_smtp";
 
 const AlertsContainer = () =>{
   // const logs = useAxios()
