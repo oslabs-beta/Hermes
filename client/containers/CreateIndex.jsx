@@ -23,7 +23,7 @@ const CreateIndex = () =>{
   }
   
   function poster(data) {
-    fetch(`/logs/indexpattern`, {
+    fetch(`/indexpatterns`, {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON'
