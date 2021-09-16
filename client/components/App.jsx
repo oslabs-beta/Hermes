@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SideBar from './SideBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LogsContainer from '../containers/LogsContainer';
@@ -7,8 +7,16 @@ import AlertsContainer from './AlertsContainer';
 import CreateIndex from '../containers/CreateIndex';
 import Visualizer from '../containers/Visualizer';
 import Nav from './Nav';
+import { useRecoilState } from 'recoil';
+import { timerIdState } from '../atom';
 
 const App = () => {
+  const [timerId, setTimerId] = useRecoilState(timerIdState);
+  useEffect(() => {
+    return () => {
+      clearInterval(timerId);
+    };
+  });
   return (
     <Router>
       <header className='header'>

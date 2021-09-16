@@ -40,14 +40,19 @@ const UserLineChart = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get('/logs/hourbuckets')
+      .get('/logs/hourbuckets', {
+        params: {
+          start: 'now-14d/d',
+          end: 'now/d',
+        },
+      })
       .then((results) => {
         const buckets = results.data;
         const categories = buckets.map(
           (bucket) =>
-            new Date(bucket.from_as_string).toLocaleDateString() +
+            new Date(bucket.key_as_string).toLocaleDateString() +
             ' ' +
-            new Date(bucket.from_as_string).toLocaleTimeString()
+            new Date(bucket.key_as_string).toLocaleTimeString()
         );
         const seriesData = buckets.map((bucket) => bucket.doc_count);
         const series = [
@@ -60,10 +65,13 @@ const UserLineChart = () => {
       })
       .catch((error) => console.log('Error in Visualizer useEffect: ', error));
   }, []);
-  // const data = {};
 
   return (
-    data && <LineChart data={data} options={options} style={containerStyle} />
+    data && (
+      <div className='chart'>
+        <LineChart data={data} options={options} style={containerStyle} />
+      </div>
+    )
   );
 };
 

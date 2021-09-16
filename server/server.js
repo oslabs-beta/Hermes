@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 
 const logsRouter = require('./routes/logsRouter.js');
+const indexPatternsRouter = require('./routes/indexPatternsRouter.js');
 // parse incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/logs', logsRouter);
+app.use('/indexpatterns', indexPatternsRouter);
 
 //catch all route handler, handles request to an unknown route
 app.use((req, res) =>

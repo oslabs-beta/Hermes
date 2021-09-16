@@ -5,10 +5,13 @@ const router = express.Router();
 router.get('/logsbyindex', logsController.getLogsByIndex, (req, res) => {
   return res.status(200).json(res.locals.logs);
 });
-router.get('/esindices', logsController.getEsIndeces, (req, res) => {
+router.get('/esindices', logsController.getEsIndices, (req, res) => {
   return res.status(200).json(res.locals.indices);
 });
 router.get('/hourbuckets', logsController.getHourBuckets, (req, res) => {
   return res.status(200).json(res.locals.hourBuckets);
+});
+router.get('/monitor', logsController.getMonitorResults, (req, res) => {
+  return res.status(200).json(res.locals.monitorResults);
 });
 module.exports = router;
