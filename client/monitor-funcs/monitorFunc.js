@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 // This function will send a search query to elasticsearch every time period.
 // If the search results match the conditions, 'Conditions met!' will be logged to the console
 
@@ -6,7 +7,7 @@ import axios from 'axios';
 
 // Time period to check: the past 30 seconds
 
-const monitorFunc = () => {
+const monitorFunc = (editorContents) => {
   const start = 'now-5s/s';
   const end = 'now/s';
   const field = 'log';
@@ -23,10 +24,11 @@ const monitorFunc = () => {
           field: field,
           value: value,
           index: index,
+          query: JSON.parse(editorContents),
         },
       })
       .then((results) => {
-        console.log();
+        console.log(results.data.hits);
         if (Number(results.data.hits.total.value) >= countThreshold) {
           console.log('1. total hits: ', results.data.hits.total);
           console.log('Top hit: ', results.data.hits.hits[0]);
