@@ -1,14 +1,15 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { timerIdState, monitorStatusState } from '../atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { timerIdState, monitorStatusState, editorContentsState } from '../atom';
 import monitorFunc from '../monitor-funcs/monitorFunc';
 
 const MonitorButton = () => {
   const [monitorStatus, setMonitorStatus] = useRecoilState(monitorStatusState);
   const [timerId, setTimerId] = useRecoilState(timerIdState);
+  const editorContents = useRecoilValue(editorContentsState);
   const clickHandler = () => {
     if (monitorStatus === 'Off') {
-      setTimerId(monitorFunc());
+      setTimerId(monitorFunc(editorContents));
       setMonitorStatus('On');
     } else {
       clearInterval(timerId);
