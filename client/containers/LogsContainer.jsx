@@ -14,6 +14,14 @@ const LogsContainer = () => {
   const logs = useAxios(`/logs/logsbyindex/?index=logstash-*&field=${field}&value=${value}`);
   console.log(logs);
 
+  const [patterns, setPatterns] = useState([]);
+
+  useEffect(() => {
+    fetch('/indexpatterns').then(res => res.json()).then(res => setPatterns(res));
+    
+  }, [setPatterns]);
+
+  console.log(patterns);
   // console.log(useRecoilValue(logState));
 
   const data1 = [...JSON.parse(JSON.stringify(useRecoilValue(logState)))];
