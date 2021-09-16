@@ -1,0 +1,21 @@
+.alerts-display-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+  height: 5rem;
+  font-size: xx-large;
+  color: black;
+}
+
+.alert-inputs {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.alert-box {
+  display: flex;
+  justify-content: center;
+  width: 100rem;
+}
