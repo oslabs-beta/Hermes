@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import Logs from './Logs';
+import Logs from '../components/Logs';
 import { useAxios } from '../hooks/useAxios';
 import { logState } from '../atom';
 import 'tui-grid/dist/tui-grid.css';
 import Grid from '@toast-ui/react-grid';
-import Row from './Row';
+import Row from '../components/Row';
 
 const LogsContainer = () => {
   const [field, setField] = useState('*');
@@ -14,6 +14,14 @@ const LogsContainer = () => {
   const logs = useAxios(`/logs/logsbyindex/?index=logstash-*&field=${field}&value=${value}`);
   console.log(logs);
 
+  const [patterns, setPatterns] = useState([]);
+
+  useEffect(() => {
+    fetch('/indexpatterns').then(res => res.json()).then(res => setPatterns(res));
+    
+  }, [setPatterns]);
+
+  console.log(patterns);
   // console.log(useRecoilValue(logState));
 
   const data1 = [...JSON.parse(JSON.stringify(useRecoilValue(logState)))];
