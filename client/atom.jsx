@@ -19,3 +19,26 @@ export const monitorStatusState = atom({
   key: 'monitorStatusState',
   default: 'Off',
 });
+
+export const editorContentsState = atom({
+  key: 'editorContentsState',
+  default: `{
+  "bool": {
+    "must": [
+      {
+        "match": {
+          "log": "ERROR"
+        }
+      },
+      {
+        "range": {
+          "@timestamp": {
+            "gte": "now-1h/h",
+            "lte": "now/h"
+          }
+        }
+      }
+    ]
+  }
+}`,
+});

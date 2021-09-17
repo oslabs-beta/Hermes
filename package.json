@@ -27,6 +27,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@monaco-editor/react": "^4.2.2",
     "@toast-ui/react-chart": "^4.3.6",
     "@toast-ui/react-grid": "^4.18.1",
     "axios": "^0.21.1",
@@ -39,7 +40,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.1",
     "recoil": "^0.4.1",
-    "webpack": "^5.51.2"
+    "webpack": "^5.52.1"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
