@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LogsContainer from '../containers/LogsContainer';
 import HomePage from './HomePage';
-import AlertsContainer from './AlertsContainer';
+import AlertsContainer from '../containers/AlertsContainer';
 import CreateIndex from '../containers/CreateIndex';
 import Visualizer from '../containers/Visualizer';
 import Nav from './Nav';

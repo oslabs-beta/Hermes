@@ -32,6 +32,10 @@ export default function FormDialog() {
     setOpen(false);
   };
 
+  const newAlert = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <Button
@@ -102,7 +106,7 @@ export default function FormDialog() {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={() => newAlert()} color='primary'>
             Create
           </Button>
         </DialogActions>

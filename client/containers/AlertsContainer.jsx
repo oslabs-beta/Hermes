@@ -1,7 +1,7 @@
 import React from 'react';
-import Alerts from './Alerts';
-import CreateAlert from './CreateAlert';
-import TextField from './AlertSearchBox';
+import Alerts from '../components/Alerts';
+import CreateAlert from '../components/CreateAlert';
+import TextField from '../components/AlertSearchBox';
 import Button from '@material-ui/core/Button';
 import sendEmail from '../../server/email_smtp';
 
