@@ -3,33 +3,38 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { lastChosenIndexPatternState } from '../atom';
+import { useRecoilState } from 'recoil';
 
-export default function SelectVariants() {
-  const [age, setAge] = React.useState('');
-
+export default function SelectVariants({ indexPatterns }) {
+  const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
+    lastChosenIndexPatternState
+  );
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setLastChosenIndexPattern(event.target.value);
   };
-
   return (
-    <div>
-      <FormControl variant='outlined' sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id='demo-simple-select-standard-label'>Age</InputLabel>
-        <Select
-          labelId='demo-simple-select-standard-label'
-          id='demo-simple-select-standard'
-          value={age}
-          onChange={handleChange}
-          label='Age'
-        >
-          <MenuItem value=''>
-            <em>None</em>
+    <FormControl
+      size='small'
+      margin='normal'
+      variant='outlined'
+      className='create-alert-input'
+      style={{ marginLeft: '.25rem' }}
+    >
+      <InputLabel id='index-pattern-dropdown-label'>Index Pattern</InputLabel>
+      <Select
+        labelId='index-pattern-dropdown-label'
+        id='index-pattern-dropdown'
+        value={lastChosenIndexPattern}
+        onChange={handleChange}
+        label='Index Pattern'
+      >
+        {indexPatterns.map((indexPattern, i) => (
+          <MenuItem key={indexPattern + i} value={indexPattern}>
+            {indexPattern}
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

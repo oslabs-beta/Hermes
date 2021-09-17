@@ -17,6 +17,12 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentAlertsInputState } from '../atom';
+/*
+const [currentAlerts, setCurrentAlerts] = useRecoilState(
+  currentAlertsInputState
+);*/
 
 const useRowStyles = makeStyles({
   root: {
@@ -52,43 +58,61 @@ function Row(props) {
     <React.Fragment>
       <TableRow className={classes.root}>
         <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+          <IconButton
+            aria-label='expand row'
+            size='small'
+            onClick={() => setOpen(!open)}
+          >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" style={{ fontSize: '14px' }}>
+        <TableCell component='th' scope='row' style={{ fontSize: '14px' }}>
           {row.name}
         </TableCell>
-        <TableCell align="center" style={{ fontSize: '14px' }}>{row.calories}</TableCell>
-        <TableCell align="center"><button><VolumeUpIcon style={{ fontSize: 30 }}/></button></TableCell>
-        <TableCell align="center"><button><BlockIcon style={{ fontSize: 30 }}/></button></TableCell>
-        <TableCell align="center"><button><DeleteIcon style={{ fontSize: 30 }}/></button></TableCell>
+        <TableCell align='center' style={{ fontSize: '14px' }}>
+          {row.calories}
+        </TableCell>
+        <TableCell align='center'>
+          <button>
+            <VolumeUpIcon style={{ fontSize: 30 }} />
+          </button>
+        </TableCell>
+        <TableCell align='center'>
+          <button>
+            <BlockIcon style={{ fontSize: 30 }} />
+          </button>
+        </TableCell>
+        <TableCell align='center'>
+          <button>
+            <DeleteIcon style={{ fontSize: 30 }} />
+          </button>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={open} timeout='auto' unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography variant='h6' gutterBottom component='div'>
                 History
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell align='right'>Amount</TableCell>
+                    <TableCell align='right'>Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
+                      <TableCell component='th' scope='row'>
                         {historyRow.date}
                       </TableCell>
                       <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align='right'>{historyRow.amount}</TableCell>
+                      <TableCell align='right'>
                         {Math.round(historyRow.amount * row.price * 100) / 100}
                       </TableCell>
                     </TableRow>
@@ -113,7 +137,7 @@ Row.propTypes = {
         amount: PropTypes.number.isRequired,
         customerId: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
-      }),
+      })
     ).isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -129,25 +153,31 @@ const rows = [
   //createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-
-
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label='collapsible table'>
         <TableHead>
           <TableRow>
             <TableCell />
             <TableCell style={{ fontSize: '16px' }}>Alert Name</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px' }}>Check Period</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px' }}>Mute</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px' }}>Disable</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px' }}>Delete</TableCell>
+            <TableCell align='center' style={{ fontSize: '16px' }}>
+              Check Period
+            </TableCell>
+            <TableCell align='center' style={{ fontSize: '16px' }}>
+              Mute
+            </TableCell>
+            <TableCell align='center' style={{ fontSize: '16px' }}>
+              Disable
+            </TableCell>
+            <TableCell align='center' style={{ fontSize: '16px' }}>
+              Delete
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.name} row={row}/>
+            <Row key={row.name} row={row} />
           ))}
         </TableBody>
       </Table>

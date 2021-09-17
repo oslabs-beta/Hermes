@@ -8,21 +8,44 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditorContainer from './EditorContainer';
 import sendEmail from '../../server/email_smtp';
-import { indexPatternsState } from '../atom';
-import { useRecoilState } from 'recoil';
+import {
+  indexPatternsState,
+  createAlertInputState,
+  currentAlertsInputState,
+  lastChosenIndexPatternState,
+} from '../atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import axios from 'axios';
 import SelectBox from './SelectBox';
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [indexPatterns, setIndexPatterns] = useRecoilState(indexPatternsState);
+  const [createAlertInput, setCreateAlertInput] = useRecoilState(
+    createAlertInputState
+  );
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(
+    currentAlertsInputState
+  );
+  const lastChosenIndexPattern = useRecoilValue(lastChosenIndexPatternState);
   useEffect(() => {
-    console.log('CreateAlert is updating');
     axios
       .get('/indexpatterns')
-      .then((array) => setIndexPatterns(array))
+      .then((result) => setIndexPatterns(result.data))
       .catch((error) => console.log('Error in CreateAlert useEffect: ', error));
   }, []);
+
+  const handleChange = (event) => {
+    const newCreateAlertInput = { ...createAlertInput };
+    //the Editor component automatically sends the value instead of the event to the handleChange function
+    if (typeof event === 'string') {
+      newCreateAlertInput.editorContents = event;
+      setCreateAlertInput(newCreateAlertInput);
+    } else {
+      newCreateAlertInput[event.target.id] = event.target.value;
+      setCreateAlertInput(newCreateAlertInput);
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,9 +55,16 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const newAlert = (e) => {
-    console.log(e.target.elements);
-    //setOpen(false);
+  // add new alert to the state that contains all user's alerts
+  const handleClickCreate = () => {
+    console.log(createAlertInput);
+    const newCurrentAlerts = [...currentAlerts];
+    newCurrentAlerts.push({
+      ...createAlertInput,
+      indexPattern: lastChosenIndexPattern,
+    });
+    setCurrentAlerts(newCurrentAlerts);
+    console.log(currentAlerts);
   };
 
   return (
@@ -56,67 +86,109 @@ export default function FormDialog() {
         fullWidth
         maxWidth='md'
       >
-        <form action='/' method='dialog' onSubmit={(e) => newAlert(e)}>
-          <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText>
-            <div className='create-alert-details'>
-              <TextField
-                margin='normal'
-                label='Alert Name'
-                variant='outlined'
-              />
-              <TextField
-                margin='normal'
-                label='Recheck Every'
-                variant='outlined'
-              />
-              <TextField
-                margin='normal'
-                label='Renotify Every'
-                variant='outlined'
-              />
-              <SelectBox indexPatterns={indexPatterns} />
-            </div>
-            <DialogContentText margin='dense'>
-              Use the editor below to enter the customized rule for your alert.
-            </DialogContentText>
-            <div className='editor-container-div'>
-              <EditorContainer />
-            </div>
-            <div className='action-details'>
-              <TextField margin='normal' label='Name' variant='outlined' />
-              <TextField
-                margin='normal'
-                id='name'
-                label='Email Address'
-                type='email'
-                variant='outlined'
-              />
-              <TextField margin='normal' label='Subject' variant='outlined' />
-            </div>
+        <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <div className='create-alert-details'>
             <TextField
-              id='outlined-multiline-static'
-              multiline
+              size='small'
+              required
               margin='normal'
-              rows={4}
-              label='Email Body'
+              label='Alert Name'
+              id='alertName'
               variant='outlined'
-              fullWidth
+              className='create-alert-input'
+              value={createAlertInput.alertName}
+              onChange={handleChange}
+              style={{ marginRight: '.25rem' }}
             />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color='primary'>
-              Cancel
-            </Button>
-            <Button type='submit' color='primary'>
-              Create
-            </Button>
-          </DialogActions>
-        </form>
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              label='Recheck Every'
+              id='monitorFrequency'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.monitorFrequency}
+              onChange={handleChange}
+              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            />
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              label='Renotify Every'
+              id='notificationFrequency'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.notificationFrequency}
+              onChange={handleChange}
+              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            />
+            <SelectBox indexPatterns={indexPatterns} />
+          </div>
+          <DialogContentText margin='dense'>
+            Use the editor below to enter the customized rule for your alert.
+          </DialogContentText>
+          <div className='editor-container-div'>
+            <EditorContainer
+              editorContents={createAlertInput.editorContents}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className='action-details'>
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              id='emailAddress'
+              label='Email Address'
+              type='email'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.emailAddress}
+              onChange={handleChange}
+              style={{ marginRight: '.25rem' }}
+            />
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              label='Subject'
+              id='emailSubject'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.emailSubject}
+              onChange={handleChange}
+              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            />
+          </div>
+          <TextField
+            size='small'
+            required
+            id='emailBody'
+            multiline
+            margin='normal'
+            rows={4}
+            label='Email Body'
+            variant='outlined'
+            fullWidth
+            value={createAlertInput.emailBody}
+            onChange={handleChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color='primary'>
+            Cancel
+          </Button>
+          <Button color='primary' onClick={handleClickCreate}>
+            Create
+          </Button>
+        </DialogActions>
       </Dialog>
     </div>
   );

@@ -20,9 +20,26 @@ export const monitorStatusState = atom({
   default: 'Off',
 });
 
-export const editorContentsState = atom({
-  key: 'editorContentsState',
-  default: `{
+export const indexPatternsState = atom({
+  key: 'indexPatternsState',
+  default: [],
+});
+
+export const lastChosenIndexPatternState = atom({
+  key: 'lastChosenIndexPatternState',
+  default: '',
+});
+
+export const createAlertInputState = atom({
+  key: 'createAlertInputState',
+  default: {
+    alertName: '',
+    monitorFrequency: '',
+    notificationFrequency: '',
+    emailAddress: '',
+    emailSubject: '',
+    emailBody: '',
+    editorContents: `{
   "bool": {
     "must": [
       {
@@ -41,9 +58,10 @@ export const editorContentsState = atom({
     ]
   }
 }`,
+  },
 });
 
-export const indexPatternsState = atom({
-  key: 'indexPatternsState',
+export const currentAlertsInputState = atom({
+  key: 'currentAlertsInputState',
   default: [],
 });

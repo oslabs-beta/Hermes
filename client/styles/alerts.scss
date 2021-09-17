@@ -30,6 +30,16 @@
 }
 
 .action-details {
+  max-width: 50%;
   display: flex;
   justify-content: space-between;
+}
+
+.create-alert-input {
+  width: 20rem;
+  min-width: 5rem;
+}
+
+#alertName #emailAddress {
+  margin-right: 0.5rem;
 }
