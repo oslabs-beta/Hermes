@@ -8,12 +8,13 @@ const EditorContainer = () => {
     useRecoilState(editorContentsState);
   const handleEditorChange = (value) => {
     // console.log('type of editorContents: ', typeof JSON.parse(editorContents));
+    console.log(editorContents);
     setEditorContents(value);
   };
 
   return (
     <Editor
-      height='50rem'
+      height='40rem'
       width='100%'
       line={2}
       defaultLanguage='JSON'

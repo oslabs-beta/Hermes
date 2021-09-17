@@ -42,3 +42,8 @@ export const editorContentsState = atom({
   }
 }`,
 });
+
+export const indexPatternsState = atom({
+  key: 'indexPatternsState',
+  default: [],
+});
