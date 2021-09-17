@@ -32,8 +32,9 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const newAlert = () => {
-    setOpen(false);
+  const newAlert = (e) => {
+    console.log(e.target.elements);
+    //setOpen(false);
   };
 
   return (
@@ -55,61 +56,67 @@ export default function FormDialog() {
         fullWidth
         maxWidth='md'
       >
-        <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <div className='create-alert-details'>
-            <TextField margin='normal' label='Alert Name' variant='outlined' />
+        <form action='/' method='dialog' onSubmit={(e) => newAlert(e)}>
+          <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address
+              here. We will send updates occasionally.
+            </DialogContentText>
+            <div className='create-alert-details'>
+              <TextField
+                margin='normal'
+                label='Alert Name'
+                variant='outlined'
+              />
+              <TextField
+                margin='normal'
+                label='Recheck Every'
+                variant='outlined'
+              />
+              <TextField
+                margin='normal'
+                label='Renotify Every'
+                variant='outlined'
+              />
+              <SelectBox indexPatterns={indexPatterns} />
+            </div>
+            <DialogContentText margin='dense'>
+              Use the editor below to enter the customized rule for your alert.
+            </DialogContentText>
+            <div className='editor-container-div'>
+              <EditorContainer />
+            </div>
+            <div className='action-details'>
+              <TextField margin='normal' label='Name' variant='outlined' />
+              <TextField
+                margin='normal'
+                id='name'
+                label='Email Address'
+                type='email'
+                variant='outlined'
+              />
+              <TextField margin='normal' label='Subject' variant='outlined' />
+            </div>
             <TextField
+              id='outlined-multiline-static'
+              multiline
               margin='normal'
-              label='Recheck Every'
+              rows={4}
+              label='Email Body'
               variant='outlined'
+              fullWidth
             />
-            <TextField
-              margin='normal'
-              label='Renotify Every'
-              variant='outlined'
-            />
-            <SelectBox indexPatterns={indexPatterns} />
-          </div>
-          <DialogContentText margin='dense'>
-            Use the editor below to enter the customized rule for your alert.
-          </DialogContentText>
-          <div className='editor-container-div'>
-            <EditorContainer />
-          </div>
-          <div className='action-details'>
-            <TextField margin='normal' label='Name' variant='outlined' />
-            <TextField
-              margin='normal'
-              id='name'
-              label='Email Address'
-              type='email'
-              variant='outlined'
-            />
-            <TextField margin='normal' label='Subject' variant='outlined' />
-          </div>
-          <TextField
-            id='outlined-multiline-static'
-            multiline
-            margin='normal'
-            rows={4}
-            label='Email Body'
-            variant='outlined'
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={() => newAlert()} color='primary'>
-            Create
-          </Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color='primary'>
+              Cancel
+            </Button>
+            <Button type='submit' color='primary'>
+              Create
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
