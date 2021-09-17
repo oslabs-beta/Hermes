@@ -1,24 +1,16 @@
 import React from 'react';
 import Editor from '@monaco-editor/react';
-import { useRecoilState } from 'recoil';
-import { editorContentsState } from '../atom';
 
-const EditorContainer = () => {
-  const [editorContents, setEditorContents] =
-    useRecoilState(editorContentsState);
-  const handleEditorChange = (value) => {
-    // console.log('type of editorContents: ', typeof JSON.parse(editorContents));
-    setEditorContents(value);
-  };
-
+const EditorContainer = ({ editorContents, handleChange }) => {
   return (
     <Editor
-      height='50rem'
+      id='editorContents'
+      height='40rem'
       width='100%'
       line={2}
       defaultLanguage='JSON'
       defaultValue={editorContents}
-      onChange={handleEditorChange}
+      onChange={handleChange}
       options={{
         minimap: {
           enabled: false,

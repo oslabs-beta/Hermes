@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LogsContainer from '../containers/LogsContainer';
 import HomePage from './HomePage';
-import AlertsContainer from './AlertsContainer';
+import AlertsContainer from '../containers/AlertsContainer';
 import CreateIndex from '../containers/CreateIndex';
 import Visualizer from '../containers/Visualizer';
 import Nav from './Nav';
@@ -27,7 +27,7 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/indexes'>
+          <Route exact path='/'>
             <HomePage />
           </Route>
           <Route path='/logs'>
@@ -39,7 +39,7 @@ const App = () => {
           <Route path='/alerts'>
             <AlertsContainer />
           </Route>
-          <Route path='/'>
+          <Route path='/indexes'>
             <CreateIndex />
           </Route>
         </Switch>
