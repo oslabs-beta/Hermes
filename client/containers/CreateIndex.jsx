@@ -65,7 +65,7 @@ const CreateIndex = () => {
         <h1>Sources</h1>
         {arr &&
           arr.map((ele, i) => {
-            return <Indicies key={i} name={ele} />;
+            return <Indices key={i} name={ele} />;
           })}
       </div>
     </div>

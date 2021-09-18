@@ -7,11 +7,11 @@ import AlertsContainer from '../containers/AlertsContainer';
 import CreateIndex from '../containers/CreateIndex';
 import Visualizer from '../containers/Visualizer';
 import Nav from './Nav';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { timerIdState } from '../atom';
 
 const App = () => {
-  const [timerId, setTimerId] = useRecoilState(timerIdState);
+  const timerId = useRecoilValue(timerIdState);
   useEffect(() => {
     return () => {
       clearInterval(timerId);
@@ -36,10 +36,10 @@ const App = () => {
           <Route path='/visualizer'>
             <Visualizer />
           </Route>
-          <Route path='/'>
+          <Route path='/alertsManager'>
             <AlertsContainer />
           </Route>
-          <Route path='/indeces'>
+          <Route path='/indices'>
             <CreateIndex />
           </Route>
         </Switch>
