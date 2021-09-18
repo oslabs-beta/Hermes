@@ -50,7 +50,9 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
+  console.log('these are props', props);
   const { row } = props;
+  console.log('this is the row', row);
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -67,10 +69,10 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component='th' scope='row' style={{ fontSize: '14px' }}>
-          {row.name}
+          {row.alertName}
         </TableCell>
         <TableCell align='center' style={{ fontSize: '14px' }}>
-          {row.calories}
+          {row.monitorFrequency}
         </TableCell>
         <TableCell align='center'>
           <button>
@@ -93,19 +95,21 @@ function Row(props) {
           <Collapse in={open} timeout='auto' unmountOnExit>
             <Box margin={1}>
               <Typography variant='h6' gutterBottom component='div'>
-                History
+                Details
               </Typography>
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align='right'>Amount</TableCell>
-                    <TableCell align='right'>Total price ($)</TableCell>
+                    <TableCell>Renotify Every</TableCell>
+                    <TableCell>Email Address</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
+                  <TableRow key = {row.alertName+'1'}>
+                    <TableCell> {row.notificationFrequency}</TableCell>
+                    <TableCell> {row.emailAddress}</TableCell>
+                  </TableRow>
+                  {/*row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
                       <TableCell component='th' scope='row'>
                         {historyRow.date}
@@ -116,7 +120,7 @@ function Row(props) {
                         {Math.round(historyRow.amount * row.price * 100) / 100}
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))*/}
                 </TableBody>
               </Table>
             </Box>
@@ -126,22 +130,30 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
+/*
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
+    alertName: PropTypes.string.isRequired,
+    monitorFrequency: PropTypes.string.isRequired,
+    //fat: PropTypes.number.isRequired,
     history: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        notificationFrequency: PropTypes.number.isRequired,
+        emailSubject: PropTypes.string.isRequired,
+        emailAddress: PropTypes.string.isRequired,
       })
     ).isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     protein: PropTypes.number.isRequired,
+  }).isRequired,
+};*/
+Row.propTypes = {
+  row: PropTypes.shape({
+    alertName: PropTypes.string.isRequired,
+    monitorFrequency: PropTypes.string.isRequired,
+    notificationFrequency: PropTypes.string.isRequired,
+    emailAddress: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -154,6 +166,10 @@ const rows = [
 ];
 
 export default function CollapsibleTable() {
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(
+    currentAlertsInputState
+  );
+  console.log('current alerts', currentAlerts);
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
@@ -176,8 +192,8 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {currentAlerts.map((alert) => (
+            <Row key={alert.alertName} row={alert} />
           ))}
         </TableBody>
       </Table>

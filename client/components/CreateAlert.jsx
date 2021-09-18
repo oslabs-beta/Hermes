@@ -57,14 +57,15 @@ export default function FormDialog() {
 
   // add new alert to the state that contains all user's alerts
   const handleClickCreate = () => {
-    console.log(createAlertInput);
+    //console.log(createAlertInput);
     const newCurrentAlerts = [...currentAlerts];
     newCurrentAlerts.push({
       ...createAlertInput,
       indexPattern: lastChosenIndexPattern,
     });
     setCurrentAlerts(newCurrentAlerts);
-    console.log(currentAlerts);
+    //console.log(currentAlerts);
+    setOpen(false);
   };
 
   return (

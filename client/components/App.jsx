@@ -27,7 +27,7 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/'>
+          <Route exact path='/alerts'>
             <HomePage />
           </Route>
           <Route path='/logs'>
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/visualizer'>
             <Visualizer />
           </Route>
-          <Route path='/alerts'>
+          <Route path='/'>
             <AlertsContainer />
           </Route>
           <Route path='/indexes'>
