@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -19,6 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentAlertsInputState } from '../atom';
+import axios from 'axios';
 /*
 const [currentAlerts, setCurrentAlerts] = useRecoilState(
   currentAlertsInputState
@@ -156,7 +157,7 @@ Row.propTypes = {
     emailAddress: PropTypes.string.isRequired,
   }).isRequired,
 };
-
+/*
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
@@ -164,12 +165,19 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
   //createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
-
+*/
 export default function CollapsibleTable() {
   const [currentAlerts, setCurrentAlerts] = useRecoilState(
     currentAlertsInputState
   );
   console.log('current alerts', currentAlerts);
+  useEffect(() => {
+    axios
+      .get('/alerts')
+      .then((result) => setCurrentAlerts(result.data))
+      .catch((error) => console.log('Error in Alerts useEffect: ', error));
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
