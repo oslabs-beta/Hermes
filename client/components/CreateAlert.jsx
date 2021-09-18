@@ -13,8 +13,12 @@ import {
   createAlertInputState,
   currentAlertsState,
   lastChosenIndexPatternState,
+  monitorFrequencyInputState,
+  monitorFrequencyUnitInputState,
+  notificationFrequencyInputState,
+  notificationFrequencyUnitInputState,
 } from '../atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import SelectBox from './SelectBox';
 
@@ -28,6 +32,17 @@ export default function FormDialog() {
   const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
     lastChosenIndexPatternState
   );
+  const [monitorFrequency, setMonitorFrequency] = useRecoilState(
+    monitorFrequencyInputState
+  );
+  const [monitorFrequencyUnit, setMonitorFrequencyUnit] = useRecoilState(
+    monitorFrequencyUnitInputState
+  );
+  const [notificationFrequency, setNotificationFrequency] = useRecoilState(
+    notificationFrequencyInputState
+  );
+  const [notificationFrequencyUnit, setNotificationFrequencyUnit] =
+    useRecoilState(notificationFrequencyUnitInputState);
 
   useEffect(() => {
     axios
@@ -82,10 +97,25 @@ export default function FormDialog() {
   };
 
   // handle change func passed down to the index pattern select box
-  const handleIndexPatternChange = (event) => {
+  const handleDropdownChange = (event) => {
     setLastChosenIndexPattern(event.target.value);
   };
-
+  // unit options for dropdowns
+  const units = ['day(s)', 'hour(s)', 'minute(s)', 'second(s)'];
+  // array from 1 to 60
+  const numbers = Array.from({ length: 60 }, (_, i) => i + 1);
+  const handleMonitorFrequencyChange = (event) => {
+    setMonitorFrequency(event.target.value);
+  };
+  const handleMonitorFrequencyUnitChange = (event) => {
+    setMonitorFrequencyUnit(event.target.value);
+  };
+  const handleNotificationFrequencyChange = (event) => {
+    setNotificationFrequency(event.target.value);
+  };
+  const handleNotificationFrequencyUnitChange = (event) => {
+    setNotificationFrequencyUnit(event.target.value);
+  };
   return (
     <div>
       <Button
@@ -107,9 +137,8 @@ export default function FormDialog() {
       >
         <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+          <DialogContentText margin='dense'>
+            Configure your alert details below.
           </DialogContentText>
           <div className='create-alert-details'>
             <TextField
@@ -124,38 +153,32 @@ export default function FormDialog() {
               onChange={handleChange}
               style={{ marginRight: '.25rem' }}
             />
-            <TextField
-              size='small'
-              required
-              margin='normal'
-              label='Recheck Every'
-              id='monitorFrequency'
-              variant='outlined'
-              className='create-alert-input'
-              value={createAlertInput.monitorFrequency}
-              onChange={handleChange}
-              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
-            />
-            <TextField
-              size='small'
-              required
-              margin='normal'
-              label='Renotify Every'
-              id='notificationFrequency'
-              variant='outlined'
-              className='create-alert-input'
-              value={createAlertInput.notificationFrequency}
-              onChange={handleChange}
-              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
-            />
             <SelectBox
               optionsArray={indexPatterns}
               labelText='Index Pattern'
               valueProp={lastChosenIndexPattern}
-              handleChange={handleIndexPatternChange}
+              handleChange={handleDropdownChange}
               styleProp={{ marginLeft: '.25rem' }}
               inputLabelId='index-pattern-dropdown-label'
               selectId='index-pattern-dropdown'
+            />
+            <SelectBox
+              optionsArray={numbers}
+              labelText='Monitoring Frequency'
+              valueProp={monitorFrequency}
+              handleChange={handleMonitorFrequencyChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='monitor-frequency-dropdown-label'
+              selectId='monitor-frequency-dropdown'
+            />
+            <SelectBox
+              optionsArray={units}
+              labelText='Unit'
+              valueProp={monitorFrequencyUnit}
+              handleChange={handleMonitorFrequencyUnitChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='monitor-frequency-unit-dropdown-label'
+              selectId='monitor-frequency-unit-dropdown'
             />
           </div>
           <DialogContentText margin='dense'>
@@ -192,6 +215,24 @@ export default function FormDialog() {
               value={createAlertInput.emailSubject}
               onChange={handleChange}
               style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            />
+            <SelectBox
+              optionsArray={numbers}
+              labelText='Notifiaction Frequency'
+              valueProp={notificationFrequency}
+              handleChange={handleNotificationFrequencyChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='notification-frequency-dropdown-label'
+              selectId='notification-frequency-dropdown'
+            />
+            <SelectBox
+              optionsArray={units}
+              labelText='Unit'
+              valueProp={notificationFrequencyUnit}
+              handleChange={handleNotificationFrequencyUnitChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='notification-frequency-unit-dropdown-label'
+              selectId='notification-frequency-unit-dropdown'
             />
           </div>
           <TextField

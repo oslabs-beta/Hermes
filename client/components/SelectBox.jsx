@@ -15,6 +15,7 @@ export default function SelectVariants({
 }) {
   return (
     <FormControl
+      required
       size='small'
       margin='normal'
       variant='outlined'
@@ -30,7 +31,7 @@ export default function SelectVariants({
         label={labelText}
       >
         {optionsArray.map((option, i) => (
-          <MenuItem key={option + i} value={option}>
+          <MenuItem key={inputLabelId + i} value={option}>
             {option}
           </MenuItem>
         ))}

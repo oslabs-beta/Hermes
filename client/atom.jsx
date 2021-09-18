@@ -65,3 +65,23 @@ export const currentAlertsState = atom({
   key: 'currentAlertsState',
   default: [],
 });
+
+export const monitorFrequencyInputState = atom({
+  key: 'monitorFrequencyInputState',
+  default: '',
+});
+
+export const monitorFrequencyUnitInputState = atom({
+  key: 'monitorFrequencyUnitInputState',
+  default: '',
+});
+
+export const notificationFrequencyInputState = atom({
+  key: 'notificationFrequencyInputState',
+  default: '',
+});
+
+export const notificationFrequencyUnitInputState = atom({
+  key: 'notificationFrequencyUnitInputState',
+  default: '',
+});
