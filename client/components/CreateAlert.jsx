@@ -104,17 +104,59 @@ export default function FormDialog() {
   const units = ['day(s)', 'hour(s)', 'minute(s)', 'second(s)'];
   // array from 1 to 60
   const numbers = Array.from({ length: 60 }, (_, i) => i + 1);
+  // converts a frequency to milliseconds
+  const frequencyConverter = (frequency, value) => {
+    let adjustedFrequency = frequency;
+    console.log('value', value);
+    switch (value) {
+      case 'day(s)':
+        adjustedFrequency *= 86400 * 1000;
+        break;
+      case 'hour(s)':
+        adjustedFrequency *= 3600 * 1000;
+        break;
+      case 'minute(s)':
+        adjustedFrequency *= 60 * 1000;
+        break;
+      case 'second(s)':
+        adjustedFrequency *= 1000;
+        break;
+      default:
+        console.log('Error in frequencyConverter');
+        break;
+    }
+    return adjustedFrequency;
+  };
   const handleMonitorFrequencyChange = (event) => {
     setMonitorFrequency(event.target.value);
   };
   const handleMonitorFrequencyUnitChange = (event) => {
     setMonitorFrequencyUnit(event.target.value);
+    // convert frequency to milliseconds and add to state
+    const convertedMonitorFrequency = frequencyConverter(
+      monitorFrequency,
+      event.target.value
+    );
+    setCreateAlertInput({
+      ...createAlertInput,
+      monitorFrequency: convertedMonitorFrequency,
+    });
   };
   const handleNotificationFrequencyChange = (event) => {
     setNotificationFrequency(event.target.value);
   };
   const handleNotificationFrequencyUnitChange = (event) => {
+    console.log(createAlertInput);
     setNotificationFrequencyUnit(event.target.value);
+    // convert frequency to milliseconds and add to state
+    const convertedNotificationFrequency = frequencyConverter(
+      notificationFrequency,
+      event.target.value
+    );
+    setCreateAlertInput({
+      ...createAlertInput,
+      notificationFrequency: convertedNotificationFrequency,
+    });
   };
   return (
     <div>
@@ -218,7 +260,7 @@ export default function FormDialog() {
             />
             <SelectBox
               optionsArray={numbers}
-              labelText='Notifiaction Frequency'
+              labelText='Notification Frequency'
               valueProp={notificationFrequency}
               handleChange={handleNotificationFrequencyChange}
               styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
