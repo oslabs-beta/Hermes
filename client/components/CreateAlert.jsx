@@ -11,7 +11,7 @@ import sendEmail from '../../server/email_smtp';
 import {
   indexPatternsState,
   createAlertInputState,
-  currentAlertsInputState,
+  currentAlertsState,
   lastChosenIndexPatternState,
 } from '../atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -24,10 +24,11 @@ export default function FormDialog() {
   const [createAlertInput, setCreateAlertInput] = useRecoilState(
     createAlertInputState
   );
-  const [currentAlerts, setCurrentAlerts] = useRecoilState(
-    currentAlertsInputState
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(currentAlertsState);
+  const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
+    lastChosenIndexPatternState
   );
-  const lastChosenIndexPattern = useRecoilValue(lastChosenIndexPatternState);
+
   useEffect(() => {
     axios
       .get('/indexpatterns')
@@ -64,12 +65,25 @@ export default function FormDialog() {
     axios
       .post('/alerts', { alert: newAlert })
       .then((result) => {
-        console.log(result);
         setCurrentAlerts(result.data);
+        setOpen(false);
+        const newCreateAlertInput = { ...createAlertInput };
+        newCreateAlertInput.alertName = '';
+        newCreateAlertInput.monitorFrequency = '';
+        newCreateAlertInput.notificationFrequency = '';
+        newCreateAlertInput.emailAddress = '';
+        newCreateAlertInput.emailSubject = '';
+        newCreateAlertInput.emailBody = '';
+        setCreateAlertInput(newCreateAlertInput);
       })
       .catch((error) =>
         console.log('Error in CreateAlert handleClickCreate: ', error)
       );
+  };
+
+  // handle change func passed down to the index pattern select box
+  const handleIndexPatternChange = (event) => {
+    setLastChosenIndexPattern(event.target.value);
   };
 
   return (
@@ -134,7 +148,15 @@ export default function FormDialog() {
               onChange={handleChange}
               style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
             />
-            <SelectBox indexPatterns={indexPatterns} />
+            <SelectBox
+              optionsArray={indexPatterns}
+              labelText='Index Pattern'
+              valueProp={lastChosenIndexPattern}
+              handleChange={handleIndexPatternChange}
+              styleProp={{ marginLeft: '.25rem' }}
+              inputLabelId='index-pattern-dropdown-label'
+              selectId='index-pattern-dropdown'
+            />
           </div>
           <DialogContentText margin='dense'>
             Use the editor below to enter the customized rule for your alert.

@@ -18,10 +18,10 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentAlertsInputState } from '../atom';
+import { currentAlertsState } from '../atom';
 /*
 const [currentAlerts, setCurrentAlerts] = useRecoilState(
-  currentAlertsInputState
+  currentAlertsState
 );*/
 
 const useRowStyles = makeStyles({

@@ -61,7 +61,7 @@ export const createAlertInputState = atom({
   },
 });
 
-export const currentAlertsInputState = atom({
-  key: 'currentAlertsInputState',
+export const currentAlertsState = atom({
+  key: 'currentAlertsState',
   default: [],
 });
