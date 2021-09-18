@@ -12,10 +12,7 @@ const AlertsContainer = () => {
     <div>
       <header className='alerts-display-header'>Alerts</header>
       <div className='alert-inputs'>
-        <form className='alert-inputs'>
-          <TextField label='test' style={{ fontSize: '16px' }} />
-          <Button style={{ fontSize: '16px' }}>Search</Button>
-        </form>
+        <TextField id='searchBox' label='test' style={{ fontSize: '16px' }}/>
         <CreateAlert
           variant='contained'
           style={{ fontSize: '16px' }}

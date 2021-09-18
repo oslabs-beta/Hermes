@@ -65,3 +65,8 @@ export const currentAlertsInputState = atom({
   key: 'currentAlertsInputState',
   default: [],
 });
+
+export const alertSearchBoxState = atom({
+  key: 'alertSearchBoxState',
+  default: '',
+});
