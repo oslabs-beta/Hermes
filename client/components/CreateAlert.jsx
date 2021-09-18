@@ -11,10 +11,12 @@ import sendEmail from '../../server/email_smtp';
 import {
   indexPatternsState,
   createAlertInputState,
-  currentAlertsInputState,
+  currentAlertsState,
   lastChosenIndexPatternState,
+  monitorFrequencyInputState,
+  notificationFrequencyInputState,
 } from '../atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import SelectBox from './SelectBox';
 
@@ -24,10 +26,17 @@ export default function FormDialog() {
   const [createAlertInput, setCreateAlertInput] = useRecoilState(
     createAlertInputState
   );
-  const [currentAlerts, setCurrentAlerts] = useRecoilState(
-    currentAlertsInputState
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(currentAlertsState);
+  const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
+    lastChosenIndexPatternState
   );
-  const lastChosenIndexPattern = useRecoilValue(lastChosenIndexPatternState);
+  const [monitorFrequency, setMonitorFrequency] = useRecoilState(
+    monitorFrequencyInputState
+  );
+  const [notificationFrequency, setNotificationFrequency] = useRecoilState(
+    notificationFrequencyInputState
+  );
+
   useEffect(() => {
     axios
       .get('/indexpatterns')
@@ -64,14 +73,87 @@ export default function FormDialog() {
     axios
       .post('/alerts', { alert: newAlert })
       .then((result) => {
-        console.log(result);
         setCurrentAlerts(result.data);
+        setOpen(false);
+        const newCreateAlertInput = { ...createAlertInput };
+        newCreateAlertInput.alertName = '';
+        newCreateAlertInput.monitorFrequency = '';
+        newCreateAlertInput.monitorFrequencyUnit = '';
+        newCreateAlertInput.notificationFrequency = '';
+        newCreateAlertInput.notificationFrequencyUnit = '';
+        newCreateAlertInput.emailAddress = '';
+        newCreateAlertInput.emailSubject = '';
+        newCreateAlertInput.emailBody = '';
+        setCreateAlertInput(newCreateAlertInput);
       })
       .catch((error) =>
         console.log('Error in CreateAlert handleClickCreate: ', error)
       );
   };
 
+  // handle change func passed down to the index pattern select box
+  const handleDropdownChange = (event) => {
+    setLastChosenIndexPattern(event.target.value);
+  };
+  // unit options for dropdowns
+  const units = ['day(s)', 'hour(s)', 'minute(s)', 'second(s)'];
+  // array from 1 to 60
+  const numbers = Array.from({ length: 60 }, (_, i) => i + 1);
+
+  // converts a frequency to milliseconds
+  const frequencyConverter = (frequency, value) => {
+    let adjustedFrequency = frequency;
+    console.log('value', value);
+    switch (value) {
+      case 'day(s)':
+        adjustedFrequency *= 86400 * 1000;
+        break;
+      case 'hour(s)':
+        adjustedFrequency *= 3600 * 1000;
+        break;
+      case 'minute(s)':
+        adjustedFrequency *= 60 * 1000;
+        break;
+      case 'second(s)':
+        adjustedFrequency *= 1000;
+        break;
+      default:
+        console.log('Error in frequencyConverter');
+        break;
+    }
+    return adjustedFrequency;
+  };
+
+  const handleMonitorFrequencyChange = (event) => {
+    setMonitorFrequency(event.target.value);
+  };
+  const handleMonitorFrequencyUnitChange = (event) => {
+    // convert frequency to milliseconds and add to state
+    const convertedMonitorFrequency = frequencyConverter(
+      monitorFrequency,
+      event.target.value
+    );
+    setCreateAlertInput({
+      ...createAlertInput,
+      monitorFrequency: convertedMonitorFrequency,
+      monitorFrequencyUnit: event.target.value,
+    });
+  };
+  const handleNotificationFrequencyChange = (event) => {
+    setNotificationFrequency(event.target.value);
+  };
+  const handleNotificationFrequencyUnitChange = (event) => {
+    // convert frequency to milliseconds and add to state
+    const convertedNotificationFrequency = frequencyConverter(
+      notificationFrequency,
+      event.target.value
+    );
+    setCreateAlertInput({
+      ...createAlertInput,
+      notificationFrequency: convertedNotificationFrequency,
+      notificationFrequencyUnit: event.target.value,
+    });
+  };
   return (
     <div>
       <Button
@@ -93,9 +175,8 @@ export default function FormDialog() {
       >
         <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+          <DialogContentText margin='dense'>
+            Configure your alert details below.
           </DialogContentText>
           <div className='create-alert-details'>
             <TextField
@@ -110,31 +191,33 @@ export default function FormDialog() {
               onChange={handleChange}
               style={{ marginRight: '.25rem' }}
             />
-            <TextField
-              size='small'
-              required
-              margin='normal'
-              label='Recheck Every'
-              id='monitorFrequency'
-              variant='outlined'
-              className='create-alert-input'
-              value={createAlertInput.monitorFrequency}
-              onChange={handleChange}
-              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            <SelectBox
+              optionsArray={indexPatterns}
+              labelText='Index Pattern'
+              valueProp={lastChosenIndexPattern}
+              handleChange={handleDropdownChange}
+              styleProp={{ marginLeft: '.25rem' }}
+              inputLabelId='index-pattern-dropdown-label'
+              selectId='index-pattern-dropdown'
             />
-            <TextField
-              size='small'
-              required
-              margin='normal'
-              label='Renotify Every'
-              id='notificationFrequency'
-              variant='outlined'
-              className='create-alert-input'
-              value={createAlertInput.notificationFrequency}
-              onChange={handleChange}
-              style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            <SelectBox
+              optionsArray={numbers}
+              labelText='Monitoring Frequency'
+              valueProp={monitorFrequency}
+              handleChange={handleMonitorFrequencyChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='monitor-frequency-dropdown-label'
+              selectId='monitor-frequency-dropdown'
             />
-            <SelectBox indexPatterns={indexPatterns} />
+            <SelectBox
+              optionsArray={units}
+              labelText='Unit'
+              valueProp={createAlertInput.monitorFrequencyUnit}
+              handleChange={handleMonitorFrequencyUnitChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='monitor-frequency-unit-dropdown-label'
+              selectId='monitor-frequency-unit-dropdown'
+            />
           </div>
           <DialogContentText margin='dense'>
             Use the editor below to enter the customized rule for your alert.
@@ -170,6 +253,24 @@ export default function FormDialog() {
               value={createAlertInput.emailSubject}
               onChange={handleChange}
               style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+            />
+            <SelectBox
+              optionsArray={numbers}
+              labelText='Notification Frequency'
+              valueProp={notificationFrequency}
+              handleChange={handleNotificationFrequencyChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='notification-frequency-dropdown-label'
+              selectId='notification-frequency-dropdown'
+            />
+            <SelectBox
+              optionsArray={units}
+              labelText='Unit'
+              valueProp={createAlertInput.notificationFrequencyUnit}
+              handleChange={handleNotificationFrequencyUnitChange}
+              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+              inputLabelId='notification-frequency-unit-dropdown-label'
+              selectId='notification-frequency-unit-dropdown'
             />
           </div>
           <TextField
