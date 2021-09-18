@@ -57,14 +57,19 @@ export default function FormDialog() {
 
   // add new alert to the state that contains all user's alerts
   const handleClickCreate = () => {
-    console.log(createAlertInput);
-    const newCurrentAlerts = [...currentAlerts];
-    newCurrentAlerts.push({
+    const newAlert = {
       ...createAlertInput,
       indexPattern: lastChosenIndexPattern,
-    });
-    setCurrentAlerts(newCurrentAlerts);
-    console.log(currentAlerts);
+    };
+    axios
+      .post('/alerts', { alert: newAlert })
+      .then((result) => {
+        console.log(result);
+        setCurrentAlerts(result.data);
+      })
+      .catch((error) =>
+        console.log('Error in CreateAlert handleClickCreate: ', error)
+      );
   };
 
   return (

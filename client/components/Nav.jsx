@@ -57,7 +57,7 @@ const Nav = () => {
                 </a>
               </li>
             </Link>
-            <Link to='/alerts'>
+            <Link to='/alertsManager'>
               <li className='navigation__item'>
                 <a
                   href='#'
@@ -68,7 +68,7 @@ const Nav = () => {
                 </a>
               </li>
             </Link>
-            <Link to='/indeces'>
+            <Link to='/indices'>
               <li className='navigation__item'>
                 <a
                   href='#'
