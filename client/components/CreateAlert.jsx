@@ -14,9 +14,7 @@ import {
   currentAlertsState,
   lastChosenIndexPatternState,
   monitorFrequencyInputState,
-  monitorFrequencyUnitInputState,
   notificationFrequencyInputState,
-  notificationFrequencyUnitInputState,
 } from '../atom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
@@ -35,14 +33,9 @@ export default function FormDialog() {
   const [monitorFrequency, setMonitorFrequency] = useRecoilState(
     monitorFrequencyInputState
   );
-  const [monitorFrequencyUnit, setMonitorFrequencyUnit] = useRecoilState(
-    monitorFrequencyUnitInputState
-  );
   const [notificationFrequency, setNotificationFrequency] = useRecoilState(
     notificationFrequencyInputState
   );
-  const [notificationFrequencyUnit, setNotificationFrequencyUnit] =
-    useRecoilState(notificationFrequencyUnitInputState);
 
   useEffect(() => {
     axios
@@ -85,7 +78,9 @@ export default function FormDialog() {
         const newCreateAlertInput = { ...createAlertInput };
         newCreateAlertInput.alertName = '';
         newCreateAlertInput.monitorFrequency = '';
+        newCreateAlertInput.monitorFrequencyUnit = '';
         newCreateAlertInput.notificationFrequency = '';
+        newCreateAlertInput.notificationFrequencyUnit = '';
         newCreateAlertInput.emailAddress = '';
         newCreateAlertInput.emailSubject = '';
         newCreateAlertInput.emailBody = '';
@@ -104,6 +99,7 @@ export default function FormDialog() {
   const units = ['day(s)', 'hour(s)', 'minute(s)', 'second(s)'];
   // array from 1 to 60
   const numbers = Array.from({ length: 60 }, (_, i) => i + 1);
+
   // converts a frequency to milliseconds
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
@@ -127,11 +123,11 @@ export default function FormDialog() {
     }
     return adjustedFrequency;
   };
+
   const handleMonitorFrequencyChange = (event) => {
     setMonitorFrequency(event.target.value);
   };
   const handleMonitorFrequencyUnitChange = (event) => {
-    setMonitorFrequencyUnit(event.target.value);
     // convert frequency to milliseconds and add to state
     const convertedMonitorFrequency = frequencyConverter(
       monitorFrequency,
@@ -140,14 +136,13 @@ export default function FormDialog() {
     setCreateAlertInput({
       ...createAlertInput,
       monitorFrequency: convertedMonitorFrequency,
+      monitorFrequencyUnit: event.target.value,
     });
   };
   const handleNotificationFrequencyChange = (event) => {
     setNotificationFrequency(event.target.value);
   };
   const handleNotificationFrequencyUnitChange = (event) => {
-    console.log(createAlertInput);
-    setNotificationFrequencyUnit(event.target.value);
     // convert frequency to milliseconds and add to state
     const convertedNotificationFrequency = frequencyConverter(
       notificationFrequency,
@@ -156,6 +151,7 @@ export default function FormDialog() {
     setCreateAlertInput({
       ...createAlertInput,
       notificationFrequency: convertedNotificationFrequency,
+      notificationFrequencyUnit: event.target.value,
     });
   };
   return (
@@ -216,7 +212,7 @@ export default function FormDialog() {
             <SelectBox
               optionsArray={units}
               labelText='Unit'
-              valueProp={monitorFrequencyUnit}
+              valueProp={createAlertInput.monitorFrequencyUnit}
               handleChange={handleMonitorFrequencyUnitChange}
               styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
               inputLabelId='monitor-frequency-unit-dropdown-label'
@@ -270,7 +266,7 @@ export default function FormDialog() {
             <SelectBox
               optionsArray={units}
               labelText='Unit'
-              valueProp={notificationFrequencyUnit}
+              valueProp={createAlertInput.notificationFrequencyUnit}
               handleChange={handleNotificationFrequencyUnitChange}
               styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
               inputLabelId='notification-frequency-unit-dropdown-label'

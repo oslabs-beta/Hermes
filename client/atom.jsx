@@ -35,7 +35,9 @@ export const createAlertInputState = atom({
   default: {
     alertName: '',
     monitorFrequency: '',
+    monitorFrequencyUnit: '',
     notificationFrequency: '',
+    notificationFrequencyUnit: '',
     emailAddress: '',
     emailSubject: '',
     emailBody: '',
