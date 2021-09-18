@@ -35,7 +35,9 @@ export const createAlertInputState = atom({
   default: {
     alertName: '',
     monitorFrequency: '',
+    monitorFrequencyUnit: '',
     notificationFrequency: '',
+    notificationFrequencyUnit: '',
     emailAddress: '',
     emailSubject: '',
     emailBody: '',
@@ -61,12 +63,32 @@ export const createAlertInputState = atom({
   },
 });
 
-export const currentAlertsInputState = atom({
-  key: 'currentAlertsInputState',
+export const currentAlertsState = atom({
+  key: 'currentAlertsState',
   default: [],
 });
 
+<<<<<<< HEAD
 export const alertSearchBoxState = atom({
   key: 'alertSearchBoxState',
+=======
+export const monitorFrequencyInputState = atom({
+  key: 'monitorFrequencyInputState',
+  default: '',
+});
+
+export const monitorFrequencyUnitInputState = atom({
+  key: 'monitorFrequencyUnitInputState',
+  default: '',
+});
+
+export const notificationFrequencyInputState = atom({
+  key: 'notificationFrequencyInputState',
+  default: '',
+});
+
+export const notificationFrequencyUnitInputState = atom({
+  key: 'notificationFrequencyUnitInputState',
+>>>>>>> dev
   default: '',
 });

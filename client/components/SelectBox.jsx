@@ -3,35 +3,36 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { lastChosenIndexPatternState } from '../atom';
-import { useRecoilState } from 'recoil';
 
-export default function SelectVariants({ indexPatterns }) {
-  const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
-    lastChosenIndexPatternState
-  );
-  const handleChange = (event) => {
-    setLastChosenIndexPattern(event.target.value);
-  };
+export default function SelectVariants({
+  optionsArray,
+  labelText,
+  styleProp,
+  handleChange,
+  valueProp,
+  inputLabelId,
+  selectId,
+}) {
   return (
     <FormControl
+      required
       size='small'
       margin='normal'
       variant='outlined'
       className='create-alert-input'
-      style={{ marginLeft: '.25rem' }}
+      style={styleProp}
     >
-      <InputLabel id='index-pattern-dropdown-label'>Index Pattern</InputLabel>
+      <InputLabel id={inputLabelId}>{labelText}</InputLabel>
       <Select
-        labelId='index-pattern-dropdown-label'
-        id='index-pattern-dropdown'
-        value={lastChosenIndexPattern}
+        labelId={inputLabelId}
+        id={selectId}
+        value={valueProp}
         onChange={handleChange}
-        label='Index Pattern'
+        label={labelText}
       >
-        {indexPatterns.map((indexPattern, i) => (
-          <MenuItem key={indexPattern + i} value={indexPattern}>
-            {indexPattern}
+        {optionsArray.map((option, i) => (
+          <MenuItem key={inputLabelId + i} value={option}>
+            {option}
           </MenuItem>
         ))}
       </Select>

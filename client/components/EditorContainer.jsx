@@ -5,7 +5,7 @@ const EditorContainer = ({ editorContents, handleChange }) => {
   return (
     <Editor
       id='editorContents'
-      height='40rem'
+      height='35rem'
       width='100%'
       line={2}
       defaultLanguage='JSON'
