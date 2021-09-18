@@ -39,7 +39,7 @@ const App = () => {
           <Route path='/'>
             <AlertsContainer />
           </Route>
-          <Route path='/indexes'>
+          <Route path='/indeces'>
             <CreateIndex />
           </Route>
         </Switch>
