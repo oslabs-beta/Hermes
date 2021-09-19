@@ -68,6 +68,11 @@ export const currentAlertsState = atom({
   default: [],
 });
 
+export const alertSearchBoxState = atom({
+  key: 'alertSearchBoxState',
+  default: '',
+});
+
 export const monitorFrequencyInputState = atom({
   key: 'monitorFrequencyInputState',
   default: '',

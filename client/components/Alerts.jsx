@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -18,7 +18,8 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentAlertsState } from '../atom';
+import { currentAlertsState, alertSearchBoxState } from '../atom';
+import axios from 'axios';
 /*
 const [currentAlerts, setCurrentAlerts] = useRecoilState(
   currentAlertsState
@@ -34,25 +35,53 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-    ],
-  };
-}
-
 function Row(props) {
+  //console.log('these are props', props);
   const { row } = props;
+  //console.log('this is the row', row);
   const [open, setOpen] = React.useState(false);
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(
+    currentAlertsState
+  );
   const classes = useRowStyles();
+  const frequencyConverter = (frequency, value) => {
+    let adjustedFrequency = frequency;
+    console.log('value', value);
+    switch (value) {
+      case 'day(s)':
+        adjustedFrequency =  adjustedFrequency / 86400 / 1000;
+        break;
+      case 'hour(s)':
+        adjustedFrequency = adjustedFrequency / 3600 / 1000;
+        break;
+      case 'minute(s)':
+        adjustedFrequency = adjustedFrequency / 60 / 1000;
+        break;
+      case 'second(s)':
+        adjustedFrequency = adjustedFrequency / 1000;
+        break;
+      default:
+        console.log('Error in frequencyConverter');
+        break;
+    }
+    return adjustedFrequency;
+  };
+  const reducedMonitorFreq = frequencyConverter(row.monitorFrequency, row.monitorFrequencyUnit);
+  const reducedRenotifyFreq = frequencyConverter(row.notificationFrequency, row.notificationFrequencyUnit);
+
+  const deleteAlert = () => {
+    console.log('hi');
+    console.log(row);
+    axios
+      .delete('/alerts', { data: {alert: row}})
+      .then((result) => {
+        console.log(result);
+        setCurrentAlerts(result.data);
+      })
+      .catch((error) =>
+      console.log('Error in CreateAlert handleClickCreate: ', error)
+    );
+  };
 
   return (
     <React.Fragment>
@@ -67,10 +96,10 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component='th' scope='row' style={{ fontSize: '14px' }}>
-          {row.name}
+          {row.alertName}
         </TableCell>
         <TableCell align='center' style={{ fontSize: '14px' }}>
-          {row.calories}
+          {row.indexPattern}
         </TableCell>
         <TableCell align='center'>
           <button>
@@ -83,7 +112,7 @@ function Row(props) {
           </button>
         </TableCell>
         <TableCell align='center'>
-          <button>
+          <button id={row.alertName + 'delete'} onClick={deleteAlert}>
             <DeleteIcon style={{ fontSize: 30 }} />
           </button>
         </TableCell>
@@ -92,31 +121,37 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <Box margin={1}>
-              <Typography variant='h6' gutterBottom component='div'>
-                History
+              <Typography variant='h5' gutterBottom component='div'>
+                Details
               </Typography>
-              <Table size='small' aria-label='purchases'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align='right'>Amount</TableCell>
-                    <TableCell align='right'>Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
+              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component='th' scope='row'>
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align='right'>{historyRow.amount}</TableCell>
-                      <TableCell align='right'>
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  <TableRow key = {row.monitorFrequency}>
+                    <TableCell>Check Period</TableCell>
+                    <TableCell> {reducedMonitorFreq + ' ' + row.monitorFrequencyUnit}</TableCell>
+                  </TableRow>
+                  <TableRow key = {row.notificationFrequency}>
+                    <TableCell>Renotify Every</TableCell>
+                    <TableCell>{reducedRenotifyFreq + ' ' + row.notificationFrequencyUnit}</TableCell>
+                  </TableRow>
+                  <TableRow key = {row.emailAddress}>
+                    <TableCell>Email Address</TableCell>
+                    <TableCell>{row.emailAddress}</TableCell>
+                  </TableRow>
+                  <TableRow key = {row.emailSubject}>
+                    <TableCell>Email Subject</TableCell>
+                    <TableCell>{row.emailSubject}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+              <Typography variant='h6' paragraph component='div'>
+                Message
+              </Typography>
+              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>{row.emailBody}</TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>
@@ -129,31 +164,31 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
+    alertName: PropTypes.string.isRequired,
+    monitorFrequency: PropTypes.number.isRequired,
+    notificationFrequency: PropTypes.number.isRequired,
+    emailAddress: PropTypes.string.isRequired,
+    emailSubject: PropTypes.string.isRequired,
+    emailBody: PropTypes.string.isRequired,
+    indexPattern: PropTypes.string.isRequired,
+    monitorFrequencyUnit: PropTypes.string.isRequired,
+    notificationFrequencyUnit: PropTypes.string.isRequired
   }).isRequired,
 };
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  //createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
 export default function CollapsibleTable() {
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(
+    currentAlertsState
+  );
+  const [alertSearchBox] = useRecoilValue(alertSearchBoxState);
+
+  useEffect(() => {
+    axios
+      .get('/alerts')
+      .then((result) => setCurrentAlerts(result.data))
+      .catch((error) => console.log('Error in Alerts useEffect: ', error));
+  }, []);
+  
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
@@ -162,7 +197,7 @@ export default function CollapsibleTable() {
             <TableCell />
             <TableCell style={{ fontSize: '16px' }}>Alert Name</TableCell>
             <TableCell align='center' style={{ fontSize: '16px' }}>
-              Check Period
+              Index Pattern
             </TableCell>
             <TableCell align='center' style={{ fontSize: '16px' }}>
               Mute
@@ -176,8 +211,8 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {currentAlerts.map((alert) => (
+            <Row key={alert.alertName} row={alert}/>
           ))}
         </TableBody>
       </Table>
