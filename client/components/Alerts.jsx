@@ -18,16 +18,12 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 import { useRecoilState, useRecoilValue } from 'recoil';
-<<<<<<< HEAD
-import { currentAlertsInputState, alertSearchBoxState } from '../atom';
+import { currentAlertsState, alertSearchBoxState } from '../atom';
 import axios from 'axios';
-=======
-import { currentAlertsState } from '../atom';
 /*
 const [currentAlerts, setCurrentAlerts] = useRecoilState(
   currentAlertsState
 );*/
->>>>>>> dev
 
 const useRowStyles = makeStyles({
   root: {
@@ -44,7 +40,48 @@ function Row(props) {
   const { row } = props;
   //console.log('this is the row', row);
   const [open, setOpen] = React.useState(false);
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(
+    currentAlertsState
+  );
   const classes = useRowStyles();
+  const frequencyConverter = (frequency, value) => {
+    let adjustedFrequency = frequency;
+    console.log('value', value);
+    switch (value) {
+      case 'day(s)':
+        adjustedFrequency =  adjustedFrequency / 86400 / 1000;
+        break;
+      case 'hour(s)':
+        adjustedFrequency = adjustedFrequency / 3600 / 1000;
+        break;
+      case 'minute(s)':
+        adjustedFrequency = adjustedFrequency / 60 / 1000;
+        break;
+      case 'second(s)':
+        adjustedFrequency = adjustedFrequency / 1000;
+        break;
+      default:
+        console.log('Error in frequencyConverter');
+        break;
+    }
+    return adjustedFrequency;
+  };
+  const reducedMonitorFreq = frequencyConverter(row.monitorFrequency, row.monitorFrequencyUnit);
+  const reducedRenotifyFreq = frequencyConverter(row.notificationFrequency, row.notificationFrequencyUnit);
+
+  const deleteAlert = () => {
+    console.log('hi');
+    console.log(row);
+    axios
+      .delete('/alerts', { data: {alert: row}})
+      .then((result) => {
+        console.log(result);
+        setCurrentAlerts(result.data);
+      })
+      .catch((error) =>
+      console.log('Error in CreateAlert handleClickCreate: ', error)
+    );
+  };
 
   return (
     <React.Fragment>
@@ -75,7 +112,7 @@ function Row(props) {
           </button>
         </TableCell>
         <TableCell align='center'>
-          <button>
+          <button id={row.alertName + 'delete'} onClick={deleteAlert}>
             <DeleteIcon style={{ fontSize: 30 }} />
           </button>
         </TableCell>
@@ -89,13 +126,13 @@ function Row(props) {
               </Typography>
               <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
                 <TableBody>
-                  <TableRow key = {row.notificationFrequency}>
-                    <TableCell>Check Period</TableCell>
-                    <TableCell> {row.notificationFrequency}</TableCell>
-                  </TableRow>
                   <TableRow key = {row.monitorFrequency}>
+                    <TableCell>Check Period</TableCell>
+                    <TableCell> {reducedMonitorFreq + ' ' + row.monitorFrequencyUnit}</TableCell>
+                  </TableRow>
+                  <TableRow key = {row.notificationFrequency}>
                     <TableCell>Renotify Every</TableCell>
-                    <TableCell>{row.monitorFrequency}</TableCell>
+                    <TableCell>{reducedRenotifyFreq + ' ' + row.notificationFrequencyUnit}</TableCell>
                   </TableRow>
                   <TableRow key = {row.emailAddress}>
                     <TableCell>Email Address</TableCell>
@@ -128,18 +165,20 @@ function Row(props) {
 Row.propTypes = {
   row: PropTypes.shape({
     alertName: PropTypes.string.isRequired,
-    monitorFrequency: PropTypes.string.isRequired,
-    notificationFrequency: PropTypes.string.isRequired,
+    monitorFrequency: PropTypes.number.isRequired,
+    notificationFrequency: PropTypes.number.isRequired,
     emailAddress: PropTypes.string.isRequired,
     emailSubject: PropTypes.string.isRequired,
     emailBody: PropTypes.string.isRequired,
-    indexPattern: PropTypes.string.isRequired
+    indexPattern: PropTypes.string.isRequired,
+    monitorFrequencyUnit: PropTypes.string.isRequired,
+    notificationFrequencyUnit: PropTypes.string.isRequired
   }).isRequired,
 };
 
 export default function CollapsibleTable() {
   const [currentAlerts, setCurrentAlerts] = useRecoilState(
-    currentAlertsInputState
+    currentAlertsState
   );
   const [alertSearchBox] = useRecoilValue(alertSearchBoxState);
 
