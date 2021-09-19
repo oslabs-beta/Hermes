@@ -10,9 +10,9 @@ export const logState = atom({
   default: [],
 });
 
-export const timerIdState = atom({
-  key: 'timerIdState',
-  default: null,
+export const intervalIdsState = atom({
+  key: 'intervalIdsState',
+  default: [],
 });
 
 export const monitorStatusState = atom({

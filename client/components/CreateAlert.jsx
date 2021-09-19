@@ -93,6 +93,7 @@ export default function FormDialog() {
         newCreateAlertInput.emailAddress = '';
         newCreateAlertInput.emailSubject = '';
         newCreateAlertInput.emailBody = '';
+        newCreateAlertInput.indexPattern = '';
         setCreateAlertInput(newCreateAlertInput);
       })
       .catch((error) =>

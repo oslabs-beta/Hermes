@@ -1,30 +1,14 @@
 import axios from 'axios';
 
-// This function will send a search query to elasticsearch every time period.
-// If the search results match the conditions, 'Conditions met!' will be logged to the console
-
-// Condition: There were 50 logs in the past 30 seconds
-
-// Time period to check: the past 30 seconds
-
-const monitorFunc = (editorContents) => {
-  const start = 'now-5s/s';
-  const end = 'now/s';
-  const field = 'log';
-  const value = 'ERROR';
-  const index = 'logstash-*';
-  const frequency = 5000;
+// This function will send search queries to elasticsearch at a frequency defined in the alert input
+const monitorFunc = (alert) => {
   const countThreshold = 1;
   return setInterval(() => {
     axios
       .get('/logs/monitor', {
         params: {
-          start: start,
-          end: end,
-          field: field,
-          value: value,
-          index: index,
-          query: JSON.parse(editorContents),
+          index: alert.indexPattern,
+          query: JSON.parse(alert.editorContents),
         },
       })
       .then((results) => {
@@ -39,7 +23,7 @@ const monitorFunc = (editorContents) => {
       .catch((error) => {
         console.log('Error in monitorFunc: ', error);
       });
-  }, frequency);
+  }, alert.monitorFrequency);
 };
 
 export default monitorFunc;

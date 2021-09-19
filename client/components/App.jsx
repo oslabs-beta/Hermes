@@ -8,13 +8,15 @@ import CreateIndex from '../containers/CreateIndex';
 import Visualizer from '../containers/Visualizer';
 import Nav from './Nav';
 import { useRecoilValue } from 'recoil';
-import { timerIdState } from '../atom';
+import { intervalIdsState } from '../atom';
 
 const App = () => {
-  const timerId = useRecoilValue(timerIdState);
+  const intervalIds = useRecoilValue(intervalIdsState);
   useEffect(() => {
     return () => {
-      clearInterval(timerId);
+      for (const intervalId of intervalIds) {
+        clearInterval(intervalId);
+      }
     };
   });
   return (
@@ -27,7 +29,7 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/alertsManager'>
+          <Route exact path='/'>
             <HomePage />
           </Route>
           <Route path='/logs'>
@@ -36,7 +38,7 @@ const App = () => {
           <Route path='/visualizer'>
             <Visualizer />
           </Route>
-          <Route path='/'>
+          <Route path='/alertsManager'>
             <AlertsContainer />
           </Route>
           <Route path='/indices'>
