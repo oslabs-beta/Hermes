@@ -13,6 +13,25 @@
 }
 
 .sources-container{
-
+display: flex;
+flex-direction: column;
     color: black;
+    padding: 2rem;
+}
+
+// .index-patterns{
+//     display: flex;
+//     align-items: center
+// }
+
+// .alerts-display-header{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+.delete-indexes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
