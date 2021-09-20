@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 // import {useAxios} from '../hooks/useAxios';
-import Indicies from '../components/Indicies';
-const CreateIndex = () =>{
+import Indices from '../components/Indices';
+const CreateIndex = () => {
   const [alias, setAlias] = useState([]);
 
   const [input, setInput] = useState('');
@@ -19,17 +19,18 @@ const CreateIndex = () =>{
 
 
   useEffect(() => {
-    fetch('/logs/esindices').then(res => res.json()).then(res => setAlias(res));
-    
+    fetch('/logs/esindices')
+      .then((res) => res.json())
+      .then((res) => setAlias(res));
   }, [setAlias]);
- 
-  if(alias){
+
+  if (alias) {
     console.log(alias['logstash-2021.09.11']);
     console.log(alias);
   }
   const arr = [];
 
-  for(let key in alias){
+  for (let key in alias) {
     arr.push(key);
   }
 
@@ -53,20 +54,20 @@ const CreateIndex = () =>{
     fetch(`/indexpatterns`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
       })
-      
-      .catch(err => console.log('Login error:', err));
+
+      .catch((err) => console.log('Login error:', err));
   }
-  function truer(arr, input){
-    for (let i = 0; i < arr.length; i++){
-      if(arr[i].includes(input)) return true;
+  function truer(arr, input) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].includes(input)) return true;
     }
     return false;
   }
@@ -84,15 +85,13 @@ const CreateIndex = () =>{
             })}
           </select><button type="button" onClick={()=> deleter({'indexPattern': marked})}>delete</button></div>
       </header>
-      <div className="sources-container">
+      <div className='sources-container'>
         <h1>Sources</h1>
-        {arr && arr.map((ele, i)=>{
-          
-          return <Indicies key={i} name={ele}/>;
-          
-        })}
+        {arr &&
+          arr.map((ele, i) => {
+            return <Indices key={i} name={ele} />;
+          })}
       </div>
-
     </div>
   );
 };

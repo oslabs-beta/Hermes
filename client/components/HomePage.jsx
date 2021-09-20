@@ -12,7 +12,7 @@ const HomePage = () => {
         
       </div> */}
       <div className='home'>
-        <Link to='logs' className='link'>
+        <Link to='/logs' className='link'>
           <div className='card'>
             <div className='card__side card__side--front'>
               <div className='card__picture card__picture--2'>&nbsp;</div>
@@ -46,7 +46,7 @@ const HomePage = () => {
           </div>
         </Link>
 
-        <Link to='visualizer' className='link'>
+        <Link to='/visualizer' className='link'>
           <div className='card'>
             <div className='card__side card__side--front'>
               <div className='card__picture card__picture--2'>&nbsp;</div>
@@ -80,7 +80,7 @@ const HomePage = () => {
           </div>
         </Link>
 
-        <Link to='alerts' className='link'>
+        <Link to='/alertsManager' className='link'>
           <div className='card'>
             <div className='card__side card__side--front'>
               <div className='card__picture card__picture--2'>&nbsp;</div>
@@ -112,7 +112,7 @@ const HomePage = () => {
           </div>
         </Link>
 
-        <Link to='indexes' className='link'>
+        <Link to='/indices' className='link'>
           <div className='card'>
             <div className='card__side card__side--front'>
               <div className='card__picture card__picture--2'>&nbsp;</div>

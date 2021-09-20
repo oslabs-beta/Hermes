@@ -19,3 +19,27 @@
   justify-content: center;
   width: 100rem;
 }
+
+.editor-container-div {
+  border: 1px solid #3c9eff;
+}
+
+.create-alert-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-details {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-alert-input {
+  width: 20rem;
+  min-width: 5rem;
+}
+
+#alertName #emailAddress {
+  margin-right: 0.5rem;
+}

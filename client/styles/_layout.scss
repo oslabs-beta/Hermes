@@ -22,7 +22,7 @@
   border-bottom: var(--color-grey-light-2);
   flex: 0 1 50%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   // min-width: 200rem
   h1 {
@@ -30,8 +30,10 @@
     font-size: 4rem;
     font-weight: 500;
   }
+  #title {
+    margin: 0 1rem;
+  }
 }
-//
 
 .sidebar-nav {
   display: flex;

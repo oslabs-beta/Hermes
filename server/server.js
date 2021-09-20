@@ -4,6 +4,7 @@ const path = require('path');
 
 const logsRouter = require('./routes/logsRouter.js');
 const indexPatternsRouter = require('./routes/indexPatternsRouter.js');
+const alertsRouter = require('./routes/alertsRouter');
 // parse incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 app.use('/logs', logsRouter);
 app.use('/indexpatterns', indexPatternsRouter);
+app.use('/alerts', alertsRouter);
 
 //catch all route handler, handles request to an unknown route
 app.use((req, res) =>
