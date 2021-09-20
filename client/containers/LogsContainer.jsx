@@ -21,7 +21,7 @@ const LogsContainer = () => {
     
   }, [setPatterns]);
 
-  console.log(patterns);
+ 
   // console.log(useRecoilValue(logState));
 
   const data1 = [...JSON.parse(JSON.stringify(useRecoilValue(logState)))];
@@ -42,16 +42,21 @@ const LogsContainer = () => {
       arr.push(string);
     }
   }
-  // for (let i = 0; i < data1.length; i++) {
-  //   if (data1[i])
-  //     arr.push({
-  //       ...data1[i],
-  //       ...data1[i]['_source'],
-  //       ...data1[i]['_source']['kubernetes'],
-  //     });
-  // }
 
-  
+  const fieldArr = [];
+  for (let i = 0; i < data1.length; i++) {
+    if (data1[i])
+      fieldArr.push(
+        //   ...data1[i],
+        data1[i]['_source']
+        // ...data1[i]['_source']['kubernetes'],
+      );
+  }
+
+  console.log(fieldArr);
+  const seter = new Set (fieldArr);
+
+  console.log(seter);
   
   // const arr = logs.hits.hits;
   return (
