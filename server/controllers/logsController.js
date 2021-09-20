@@ -94,25 +94,6 @@ logsController.getHourBuckets = (req, res, next) => {
 };
 
 logsController.getMonitorResults = (req, res, next) => {
-  // const query = {
-  //   bool: {
-  //     must: [
-  //       {
-  //         match: {},
-  //       },
-  //       {
-  //         range: {
-  //           '@timestamp': {
-  //             gte: req.query.start,
-  //             lte: req.query.end,
-  //           },
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
-  // // match condition
-  // query.bool.must[0].match[req.query.field] = req.query.value;
   const query = JSON.parse(req.query.query);
   fetch(`http://localhost:9200/${req.query.index}/_search`, {
     method: 'POST',

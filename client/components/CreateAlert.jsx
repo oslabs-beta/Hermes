@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditorContainer from './EditorContainer';
-import sendEmail from '../../server/email_smtp';
+import sendEmail from '../monitor-funcs/email_smtp';
 import {
   indexPatternsState,
   createAlertInputState,
@@ -22,6 +22,7 @@ import SelectBox from './SelectBox';
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const [indexPatterns, setIndexPatterns] = useRecoilState(indexPatternsState);
   const [createAlertInput, setCreateAlertInput] = useRecoilState(
     createAlertInputState
@@ -43,6 +44,14 @@ export default function FormDialog() {
       .then((result) => setIndexPatterns(result.data))
       .catch((error) => console.log('Error in CreateAlert useEffect: ', error));
   }, []);
+  useEffect(() => {
+    let activateCreateButton = true;
+    for (const key in createAlertInput) {
+      if (createAlertInput[key] === '') activateCreateButton = false;
+    }
+    if (lastChosenIndexPattern === '') activateCreateButton = false;
+    setDisableButton(!activateCreateButton);
+  }, [createAlertInput, lastChosenIndexPattern]);
 
   const handleChange = (event) => {
     const newCreateAlertInput = { ...createAlertInput };
@@ -84,6 +93,7 @@ export default function FormDialog() {
         newCreateAlertInput.emailAddress = '';
         newCreateAlertInput.emailSubject = '';
         newCreateAlertInput.emailBody = '';
+        newCreateAlertInput.indexPattern = '';
         setCreateAlertInput(newCreateAlertInput);
       })
       .catch((error) =>
@@ -103,7 +113,6 @@ export default function FormDialog() {
   // converts a frequency to milliseconds
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
-    console.log('value', value);
     switch (value) {
       case 'day(s)':
         adjustedFrequency *= 86400 * 1000;
@@ -291,7 +300,11 @@ export default function FormDialog() {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button color='primary' onClick={handleClickCreate}>
+          <Button
+            color='primary'
+            disabled={disableButton}
+            onClick={handleClickCreate}
+          >
             Create
           </Button>
         </DialogActions>
