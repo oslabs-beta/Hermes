@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import sendEmail from './email_smtp';
 // This function will send search queries to elasticsearch at a frequency defined in the alert input
 const monitorFunc = (alert) => {
   const countThreshold = 1;
@@ -14,6 +14,7 @@ const monitorFunc = (alert) => {
       .then((results) => {
         console.log(results.data.hits);
         if (Number(results.data.hits.total.value) >= countThreshold) {
+          sendEmail(alert.emailAddress, alert.emailSubject, alert.emailBody);
           console.log('1. total hits: ', results.data.hits.total);
           console.log('Top hit: ', results.data.hits.hits[0]);
         } else {

@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditorContainer from './EditorContainer';
-import sendEmail from '../../server/email_smtp';
+import sendEmail from '../monitor-funcs/email_smtp';
 import {
   indexPatternsState,
   createAlertInputState,

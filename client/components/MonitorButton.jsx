@@ -5,6 +5,7 @@ import {
   monitorStatusState,
   currentAlertsState,
 } from '../atom';
+import Button from '@material-ui/core/Button';
 import monitorFunc from '../monitor-funcs/monitorFunc';
 
 const MonitorButton = () => {
@@ -30,7 +31,19 @@ const MonitorButton = () => {
       setMonitorStatus('Off');
     }
   };
-  return <button onClick={clickHandler}>Monitoring: {monitorStatus}</button>;
+  // return <button onClick={clickHandler}>Monitoring: {monitorStatus}</button>;
+  return (
+    <Button
+      style={{
+        background:
+          'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
+        color: '#faf9f9',
+      }}
+      onClick={clickHandler}
+    >
+      Monitoring: {monitorStatus}
+    </Button>
+  );
 };
 
 export default MonitorButton;
