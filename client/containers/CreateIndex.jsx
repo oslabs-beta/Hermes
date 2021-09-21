@@ -11,12 +11,10 @@ const CreateIndex = () => {
   const [marked, setMarked] = useState('');
 
   useEffect(() => {
-    fetch('/indexpatterns').then(res => res.json()).then(res => setPatterns(res));
-    
+    fetch('/indexpatterns')
+      .then((res) => res.json())
+      .then((res) => setPatterns(res));
   }, [marked]);
-
-  console.log(patterns);
-
 
   useEffect(() => {
     fetch('/logs/esindices')
@@ -24,10 +22,6 @@ const CreateIndex = () => {
       .then((res) => setAlias(res));
   }, [setAlias]);
 
-  if (alias) {
-    console.log(alias['logstash-2021.09.11']);
-    console.log(alias);
-  }
   const arr = [];
 
   for (let key in alias) {
@@ -38,18 +32,18 @@ const CreateIndex = () => {
     fetch(`/indexpatterns`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        // update the dropdown
       })
-      
-      .catch(err => console.log('Login error:', err));
+
+      .catch((err) => console.log('Error in deleter function:', err));
   }
-  
+
   function poster(data) {
     fetch(`/indexpatterns`, {
       method: 'POST',
@@ -60,10 +54,10 @@ const CreateIndex = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        // update dropdown
       })
 
-      .catch((err) => console.log('Login error:', err));
+      .catch((err) => console.log('Error in poster:', err));
   }
   function truer(arr, input) {
     for (let i = 0; i < arr.length; i++) {

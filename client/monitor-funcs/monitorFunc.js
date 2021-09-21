@@ -19,14 +19,11 @@ const monitorFunc = (alert) => {
             alert.emailBody,
             results.data.hits.hits[0]._source
           );
-          console.log('emailBody: ', emailBody);
           sendEmail(alert.emailAddress, alert.emailSubject, emailBody);
-        } else {
-          console.log('All is good.');
         }
       })
       .catch((error) => {
-        console.log('Error in monitorFunc: ', error);
+        console.log('Error in monitorFunc get request: ', error);
       });
   }, alert.monitorFrequency);
 };

@@ -21,7 +21,6 @@ const App = () => {
     axios
       .get('/alerts')
       .then((result) => {
-        console.log('result', result);
         setCurrentAlerts(result.data);
       })
       .catch((error) => console.log('Error in App alerts get request ', error));
