@@ -9,18 +9,13 @@ import Visualizer from '../containers/Visualizer';
 import MonitorButton from './MonitorButton';
 import Nav from './Nav';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import {
-  intervalIdsState,
-  currentAlertsState,
-  monitorStatusState,
-} from '../atom';
-import monitorFunc from '../monitor-funcs/monitorFunc';
+import { intervalIdsState, currentAlertsState } from '../atom';
 import axios from 'axios';
+import img from '../assets/Hermes-A-Gold.png';
 
 const App = () => {
   const intervalIds = useRecoilValue(intervalIdsState);
   const [currentAlerts, setCurrentAlerts] = useRecoilState(currentAlertsState);
-  const [monitorStatus, setMonitorStatus] = useRecoilState(monitorStatusState);
 
   useEffect(() => {
     axios
@@ -42,7 +37,7 @@ const App = () => {
       <header className='header'>
         <Nav />
         <MonitorButton />
-        <h1 id='title'>Hermes</h1>
+        <img src={img} alt='Hermes logo' />
       </header>
       <div className='app-container'>
         {false && <SideBar />}
