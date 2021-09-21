@@ -43,10 +43,10 @@ function Row(props) {
   const [currentAlerts, setCurrentAlerts] = useRecoilState(
     currentAlertsState
   );
+  const alertSearchBox = useRecoilValue(alertSearchBoxState);
   const classes = useRowStyles();
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
-    console.log('value', value);
     switch (value) {
       case 'day(s)':
         adjustedFrequency =  adjustedFrequency / 86400 / 1000;
@@ -70,19 +70,19 @@ function Row(props) {
   const reducedRenotifyFreq = frequencyConverter(row.notificationFrequency, row.notificationFrequencyUnit);
 
   const deleteAlert = () => {
-    console.log('hi');
-    console.log(row);
     axios
       .delete('/alerts', { data: {alert: row}})
       .then((result) => {
-        console.log(result);
         setCurrentAlerts(result.data);
       })
       .catch((error) =>
       console.log('Error in CreateAlert handleClickCreate: ', error)
     );
   };
-
+  console.log('this is alert state in row', alertSearchBox);
+  console.log(row.alertName);
+  const regex = new RegExp(alertSearchBox,'i');
+if (alertSearchBox === '' || regex.test(row.alertName)){
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -154,12 +154,26 @@ function Row(props) {
                   </TableRow>
                 </TableBody>
               </Table>
+              <Typography variant='h6' paragraph component='div'>
+                Rule
+              </Typography>
+              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>{row.editorContents}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
     </React.Fragment>
   );
+} 
+return (
+  <tr></tr>
+);
 }
 
 Row.propTypes = {
@@ -172,16 +186,17 @@ Row.propTypes = {
     emailBody: PropTypes.string.isRequired,
     indexPattern: PropTypes.string.isRequired,
     monitorFrequencyUnit: PropTypes.string.isRequired,
-    notificationFrequencyUnit: PropTypes.string.isRequired
-  }).isRequired,
+    notificationFrequencyUnit: PropTypes.string.isRequired,
+    editorContents: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default function CollapsibleTable() {
   const [currentAlerts, setCurrentAlerts] = useRecoilState(
     currentAlertsState
   );
-  const [alertSearchBox] = useRecoilValue(alertSearchBoxState);
-
+  const [alertSearchBox] = useRecoilState(alertSearchBoxState);
+  console.log('asb in default export',alertSearchBox);
   useEffect(() => {
     axios
       .get('/alerts')

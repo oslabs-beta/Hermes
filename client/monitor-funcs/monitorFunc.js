@@ -1,5 +1,6 @@
 import axios from 'axios';
 import sendEmail from './email_smtp';
+import Mustache from 'mustache';
 // This function will send search queries to elasticsearch at a frequency defined in the alert input
 const monitorFunc = (alert) => {
   const countThreshold = 1;
@@ -12,11 +13,14 @@ const monitorFunc = (alert) => {
         },
       })
       .then((results) => {
-        console.log(results.data.hits);
         if (Number(results.data.hits.total.value) >= countThreshold) {
-          sendEmail(alert.emailAddress, alert.emailSubject, alert.emailBody);
-          console.log('1. total hits: ', results.data.hits.total);
-          console.log('Top hit: ', results.data.hits.hits[0]);
+          // render the new string with the mustache variables and save as emailBody
+          const emailBody = Mustache.render(
+            alert.emailBody,
+            results.data.hits.hits[0]._source
+          );
+          console.log('emailBody: ', emailBody);
+          sendEmail(alert.emailAddress, alert.emailSubject, emailBody);
         } else {
           console.log('All is good.');
         }
