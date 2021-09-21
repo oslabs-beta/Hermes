@@ -18,9 +18,9 @@ export default function BasicTextFields() {
   const [alertSearchBox, setAlertSearchBox] = useRecoilState(alertSearchBoxState);
   const handleChange = (event) => {
     console.log(event.target.value);
-    const newAlertSearch = event.target.value.toLowerCase();
+    const newAlertSearch = event.target.value;
     setAlertSearchBox(newAlertSearch);
-    console.log('this is state', alertSearchBox);
+    console.log('this is state in alert search box', alertSearchBox);
 
   };
   return (
