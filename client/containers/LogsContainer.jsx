@@ -21,17 +21,18 @@ const LogsContainer = () => {
     
   }, [setPatterns]);
 
-  console.log(patterns);
+ 
   // console.log(useRecoilValue(logState));
 
   const data1 = [...JSON.parse(JSON.stringify(useRecoilValue(logState)))];
- 
+  const seter = new Set ();
   const arr = [];
   // build an array of objects. Each object has one property, Log. The value is the _source object stringified.
   for (let i = 0; i < data1.length; i++) {
     if (data1[i]) {
       let string = '';
       for (const key in data1[i]._source) {
+        seter.add(key);
         string += `${key}: `;
         if (typeof data1[i]._source[key] === 'object') {
           string += `${JSON.stringify(data1[i]._source[key])}, `;
@@ -42,27 +43,36 @@ const LogsContainer = () => {
       arr.push(string);
     }
   }
+
+  // const fieldArr = [];
   // for (let i = 0; i < data1.length; i++) {
   //   if (data1[i])
-  //     arr.push({
-  //       ...data1[i],
-  //       ...data1[i]['_source'],
-  //       ...data1[i]['_source']['kubernetes'],
-  //     });
+  //     fieldArr.push(
+  //       //   ...data1[i],
+  //       data1[i]['_source']
+  //       // ...data1[i]['_source']['kubernetes'],
+  //     );
   // }
+  // // let testArr = [4, 8, 56, 87, 4, 8, 87];
+  // console.log(fieldArr);
+  
+  
 
+  // seter.add({
+  //   ...fieldArr[0]
+  // })
   
-  
+  console.log();
+  const selectArr = Array.from(seter);
   // const arr = logs.hits.hits;
   return (
     <div className='log-page-container'>
       <div className='filter-box'>
         <button type='button'>add filter</button>
         <select name="fields" onChange={(e) => setField(e.target.value)}>
-          <option value="_id">_id</option>
-          <option value="_index">_index</option>
-          <option value="_score">_score</option>
-          <option value="_type">_type</option>
+          {selectArr.map((field, i)=>{
+            return <option key={i}>{field}</option>;
+          })}
         </select>
         <input
           type='text'
