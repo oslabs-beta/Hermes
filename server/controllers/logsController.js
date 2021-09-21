@@ -14,7 +14,6 @@ logsController.getLogsByIndex = (req, res, next) => {
     })
     .catch((error) => {
       console.log(error);
-      console.log('made it inside catch');
       return next(
         'Error in logsController.getLogsByIndex: Check server logs for more information.'
       );

@@ -11,12 +11,10 @@ const CreateIndex = () => {
   const [marked, setMarked] = useState('');
 
   useEffect(() => {
-    fetch('/indexpatterns').then(res => res.json()).then(res => setPatterns(res));
-    
+    fetch('/indexpatterns')
+      .then((res) => res.json())
+      .then((res) => setPatterns(res));
   }, [marked]);
-
-  console.log(patterns);
-
 
   useEffect(() => {
     fetch('/logs/esindices')
@@ -24,10 +22,6 @@ const CreateIndex = () => {
       .then((res) => setAlias(res));
   }, [setAlias]);
 
-  if (alias) {
-    console.log(alias['logstash-2021.09.11']);
-    console.log(alias);
-  }
   const arr = [];
 
   for (let key in alias) {
@@ -38,18 +32,18 @@ const CreateIndex = () => {
     fetch(`/indexpatterns`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        // update the dropdown
       })
-      
-      .catch(err => console.log('Login error:', err));
+
+      .catch((err) => console.log('Error in deleter function:', err));
   }
-  
+
   function poster(data) {
     fetch(`/indexpatterns`, {
       method: 'POST',
@@ -60,10 +54,10 @@ const CreateIndex = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        // update dropdown
       })
 
-      .catch((err) => console.log('Login error:', err));
+      .catch((err) => console.log('Error in poster:', err));
   }
   function truer(arr, input) {
     for (let i = 0; i < arr.length; i++) {
@@ -72,18 +66,43 @@ const CreateIndex = () => {
     return false;
   }
 
-  return(
-    <div className="index-container">
-      <header className="alerts-display-header">
-        <h1 className="index-titler">Define an index pattern</h1>
-        <input type="text" className="index-field" value={input} onChange={(e)=> setInput(e.target.value)}/>
-        {truer(arr, input) && <button type="button" onClick={()=> poster({'indexPattern': input})}>Add Index</button>}
-        <div className="delete-indexes">
-          <select name="patterns" className="index-patterns" onChange={(e)=> setMarked(e.target.value)}>
-            {patterns && patterns.map((index, i)=>{
-              return <option value={index} key ={i}>{index}</option>;
-            })}
-          </select><button type="button" onClick={()=> deleter({'indexPattern': marked})}>delete</button></div>
+  return (
+    <div className='index-container'>
+      <header className='alerts-display-header'>
+        <h1 className='index-titler'>Define an index pattern</h1>
+        <input
+          type='text'
+          className='index-field'
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        {truer(arr, input) && (
+          <button type='button' onClick={() => poster({ indexPattern: input })}>
+            Add Index
+          </button>
+        )}
+        <div className='delete-indexes'>
+          <select
+            name='patterns'
+            className='index-patterns'
+            onChange={(e) => setMarked(e.target.value)}
+          >
+            {patterns &&
+              patterns.map((index, i) => {
+                return (
+                  <option value={index} key={i}>
+                    {index}
+                  </option>
+                );
+              })}
+          </select>
+          <button
+            type='button'
+            onClick={() => deleter({ indexPattern: marked })}
+          >
+            delete
+          </button>
+        </div>
       </header>
       <div className='sources-container'>
         <h1>Sources</h1>

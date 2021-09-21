@@ -15,15 +15,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BasicTextFields() {
   const classes = useStyles();
-  const [alertSearchBox, setAlertSearchBox] = useRecoilState(alertSearchBoxState);
+  const [alertSearchBox, setAlertSearchBox] =
+    useRecoilState(alertSearchBoxState);
   const handleChange = (event) => {
-    console.log(event.target.value);
     const newAlertSearch = event.target.value;
     setAlertSearchBox(newAlertSearch);
-    console.log('this is state in alert search box', alertSearchBox);
-
   };
   return (
-    <TextField className={classes.root} id="standard-basic" label="Search for Alerts" onChange={handleChange}/>
+    <TextField
+      className={classes.root}
+      id='standard-basic'
+      label='Search for Alerts'
+      onChange={handleChange}
+    />
   );
 }
