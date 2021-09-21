@@ -21,7 +21,6 @@ const App = () => {
     axios
       .get('/alerts')
       .then((result) => {
-        console.log('result', result);
         setCurrentAlerts(result.data);
       })
       .catch((error) => console.log('Error in App alerts get request ', error));
@@ -43,10 +42,10 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/logs'>
+          <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path='/'>
+          <Route path='/logs'>
             <LogsContainer />
           </Route>
           <Route path='/visualizer'>

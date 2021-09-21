@@ -20,10 +20,6 @@ import BlockIcon from '@material-ui/icons/Block';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentAlertsState, alertSearchBoxState } from '../atom';
 import axios from 'axios';
-/*
-const [currentAlerts, setCurrentAlerts] = useRecoilState(
-  currentAlertsState
-);*/
 
 const useRowStyles = makeStyles({
   root: {
@@ -36,20 +32,16 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  //console.log('these are props', props);
   const { row } = props;
-  //console.log('this is the row', row);
   const [open, setOpen] = React.useState(false);
-  const [currentAlerts, setCurrentAlerts] = useRecoilState(
-    currentAlertsState
-  );
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(currentAlertsState);
   const alertSearchBox = useRecoilValue(alertSearchBoxState);
   const classes = useRowStyles();
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
     switch (value) {
       case 'day(s)':
-        adjustedFrequency =  adjustedFrequency / 86400 / 1000;
+        adjustedFrequency = adjustedFrequency / 86400 / 1000;
         break;
       case 'hour(s)':
         adjustedFrequency = adjustedFrequency / 3600 / 1000;
@@ -66,114 +58,135 @@ function Row(props) {
     }
     return adjustedFrequency;
   };
-  const reducedMonitorFreq = frequencyConverter(row.monitorFrequency, row.monitorFrequencyUnit);
-  const reducedRenotifyFreq = frequencyConverter(row.notificationFrequency, row.notificationFrequencyUnit);
+  const reducedMonitorFreq = frequencyConverter(
+    row.monitorFrequency,
+    row.monitorFrequencyUnit
+  );
+  const reducedRenotifyFreq = frequencyConverter(
+    row.notificationFrequency,
+    row.notificationFrequencyUnit
+  );
 
   const deleteAlert = () => {
     axios
-      .delete('/alerts', { data: {alert: row}})
+      .delete('/alerts', { data: { alert: row } })
       .then((result) => {
         setCurrentAlerts(result.data);
       })
       .catch((error) =>
-      console.log('Error in CreateAlert handleClickCreate: ', error)
-    );
+        console.log('Error in CreateAlert handleClickCreate: ', error)
+      );
   };
-  console.log('this is alert state in row', alertSearchBox);
-  console.log(row.alertName);
-  const regex = new RegExp(alertSearchBox,'i');
-if (alertSearchBox === '' || regex.test(row.alertName)){
-  return (
-    <React.Fragment>
-      <TableRow className={classes.root}>
-        <TableCell>
-          <IconButton
-            aria-label='expand row'
-            size='small'
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component='th' scope='row' style={{ fontSize: '14px' }}>
-          {row.alertName}
-        </TableCell>
-        <TableCell align='center' style={{ fontSize: '14px' }}>
-          {row.indexPattern}
-        </TableCell>
-        <TableCell align='center'>
-          <button>
-            <VolumeUpIcon style={{ fontSize: 30 }} />
-          </button>
-        </TableCell>
-        <TableCell align='center'>
-          <button>
-            <BlockIcon style={{ fontSize: 30 }} />
-          </button>
-        </TableCell>
-        <TableCell align='center'>
-          <button id={row.alertName + 'delete'} onClick={deleteAlert}>
-            <DeleteIcon style={{ fontSize: 30 }} />
-          </button>
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box margin={1}>
-              <Typography variant='h5' gutterBottom component='div'>
-                Details
-              </Typography>
-              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
-                <TableBody>
-                  <TableRow key = {row.monitorFrequency}>
-                    <TableCell>Check Period</TableCell>
-                    <TableCell> {reducedMonitorFreq + ' ' + row.monitorFrequencyUnit}</TableCell>
-                  </TableRow>
-                  <TableRow key = {row.notificationFrequency}>
-                    <TableCell>Renotify Every</TableCell>
-                    <TableCell>{reducedRenotifyFreq + ' ' + row.notificationFrequencyUnit}</TableCell>
-                  </TableRow>
-                  <TableRow key = {row.emailAddress}>
-                    <TableCell>Email Address</TableCell>
-                    <TableCell>{row.emailAddress}</TableCell>
-                  </TableRow>
-                  <TableRow key = {row.emailSubject}>
-                    <TableCell>Email Subject</TableCell>
-                    <TableCell>{row.emailSubject}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-              <Typography variant='h6' paragraph component='div'>
-                Message
-              </Typography>
-              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>{row.emailBody}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-              <Typography variant='h6' paragraph component='div'>
-                Rule
-              </Typography>
-              <Table size='small' aria-label='purchases' style={{marginBottom: '2rem', marginTop: '1rem'}}>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>{row.editorContents}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  );
-} 
-return (
-  <tr></tr>
-);
+  const regex = new RegExp(alertSearchBox, 'i');
+  if (alertSearchBox === '' || regex.test(row.alertName)) {
+    return (
+      <React.Fragment>
+        <TableRow className={classes.root}>
+          <TableCell>
+            <IconButton
+              aria-label='expand row'
+              size='small'
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
+          <TableCell component='th' scope='row' style={{ fontSize: '14px' }}>
+            {row.alertName}
+          </TableCell>
+          <TableCell align='center' style={{ fontSize: '14px' }}>
+            {row.indexPattern}
+          </TableCell>
+          <TableCell align='center'>
+            <button>
+              <VolumeUpIcon style={{ fontSize: 30 }} />
+            </button>
+          </TableCell>
+          <TableCell align='center'>
+            <button>
+              <BlockIcon style={{ fontSize: 30 }} />
+            </button>
+          </TableCell>
+          <TableCell align='center'>
+            <button id={row.alertName + 'delete'} onClick={deleteAlert}>
+              <DeleteIcon style={{ fontSize: 30 }} />
+            </button>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={open} timeout='auto' unmountOnExit>
+              <Box margin={1}>
+                <Typography variant='h5' gutterBottom component='div'>
+                  Details
+                </Typography>
+                <Table
+                  size='small'
+                  aria-label='purchases'
+                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                >
+                  <TableBody>
+                    <TableRow key={row.monitorFrequency}>
+                      <TableCell>Check Period</TableCell>
+                      <TableCell>
+                        {' '}
+                        {reducedMonitorFreq + ' ' + row.monitorFrequencyUnit}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key={row.notificationFrequency}>
+                      <TableCell>Renotify Every</TableCell>
+                      <TableCell>
+                        {reducedRenotifyFreq +
+                          ' ' +
+                          row.notificationFrequencyUnit}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key={row.emailAddress}>
+                      <TableCell>Email Address</TableCell>
+                      <TableCell>{row.emailAddress}</TableCell>
+                    </TableRow>
+                    <TableRow key={row.emailSubject}>
+                      <TableCell>Email Subject</TableCell>
+                      <TableCell>{row.emailSubject}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                <Typography variant='h6' paragraph component='div'>
+                  Message
+                </Typography>
+                <Table
+                  size='small'
+                  aria-label='purchases'
+                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                >
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>{row.emailBody}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                <Typography variant='h6' paragraph component='div'>
+                  Rule
+                </Typography>
+                <Table
+                  size='small'
+                  aria-label='purchases'
+                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                >
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>{row.editorContents}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </React.Fragment>
+    );
+  }
+  return <tr></tr>;
 }
 
 Row.propTypes = {
@@ -187,23 +200,20 @@ Row.propTypes = {
     indexPattern: PropTypes.string.isRequired,
     monitorFrequencyUnit: PropTypes.string.isRequired,
     notificationFrequencyUnit: PropTypes.string.isRequired,
-    editorContents: PropTypes.string.isRequired
-  }).isRequired
+    editorContents: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default function CollapsibleTable() {
-  const [currentAlerts, setCurrentAlerts] = useRecoilState(
-    currentAlertsState
-  );
+  const [currentAlerts, setCurrentAlerts] = useRecoilState(currentAlertsState);
   const [alertSearchBox] = useRecoilState(alertSearchBoxState);
-  console.log('asb in default export',alertSearchBox);
   useEffect(() => {
     axios
       .get('/alerts')
       .then((result) => setCurrentAlerts(result.data))
       .catch((error) => console.log('Error in Alerts useEffect: ', error));
   }, []);
-  
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
@@ -227,7 +237,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {currentAlerts.map((alert) => (
-            <Row key={alert.alertName} row={alert}/>
+            <Row key={alert.alertName} row={alert} />
           ))}
         </TableBody>
       </Table>

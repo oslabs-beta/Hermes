@@ -19,8 +19,6 @@ const MonitorButton = () => {
       for (const alert of currentAlerts) {
         newIntervalIds.push(monitorFunc(alert));
       }
-      console.log('newIntervalIds: ', newIntervalIds);
-      console.log('currentAlerts: ', currentAlerts);
       setIntervalIds(newIntervalIds);
       setMonitorStatus('On');
     } else {
