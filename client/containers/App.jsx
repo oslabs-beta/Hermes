@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import SideBar from './SideBar';
+import SideBar from '../components/SideBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LogsContainer from '../containers/LogsContainer';
-import HomePage from './HomePage';
-import AlertsContainer from '../containers/AlertsContainer';
-import CreateIndex from '../containers/CreateIndex';
-import Visualizer from '../containers/Visualizer';
-import MonitorButton from './MonitorButton';
-import Nav from './Nav';
+import LogsContainer from './LogsContainer';
+import HomePage from '../components/HomePage';
+import AlertsContainer from './AlertsContainer';
+import CreateIndex from './CreateIndex';
+import Visualizer from './Visualizer';
+import MonitorButton from '../components/MonitorButton';
+import Nav from '../components/Nav';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { intervalIdsState, currentAlertsState } from '../atom';
 import axios from 'axios';
@@ -43,10 +43,10 @@ const App = () => {
         {false && <SideBar />}
 
         <Switch>
-          <Route exact path='/logs'>
+          <Route exact path='/indices'>
             <HomePage />
           </Route>
-          <Route path='/'>
+          <Route path='/logs'>
             <LogsContainer />
           </Route>
           <Route path='/visualizer'>
@@ -55,7 +55,7 @@ const App = () => {
           <Route path='/alertsManager'>
             <AlertsContainer />
           </Route>
-          <Route path='/indices'>
+          <Route path='/'>
             <CreateIndex />
           </Route>
         </Switch>

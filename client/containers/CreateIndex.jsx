@@ -67,7 +67,7 @@ const CreateIndex = () => {
   }
   function truer(arr, input) {
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i].includes(input)) return true;
+      if (arr[i].includes(input) || input.charAt(input.length - 1) === '*') return true;
     }
     return false;
   }
@@ -75,7 +75,7 @@ const CreateIndex = () => {
   return(
     <div className="index-container">
       <header className="alerts-display-header">
-        <h1 className="index-titler">Define an index pattern</h1>
+        <h1 className="index-titler">Manage Indicies</h1>
         <input type="text" className="index-field" value={input} onChange={(e)=> setInput(e.target.value)}/>
         {truer(arr, input) && <button type="button" onClick={()=> poster({'indexPattern': input})}>Add Index</button>}
         <div className="delete-indexes">
@@ -86,7 +86,7 @@ const CreateIndex = () => {
           </select><button type="button" onClick={()=> deleter({'indexPattern': marked})}>delete</button></div>
       </header>
       <div className='sources-container'>
-        <h1>Sources</h1>
+        <h1>Existing Elasticsearch Indices</h1>
         {arr &&
           arr.map((ele, i) => {
             return <Indices key={i} name={ele} />;
