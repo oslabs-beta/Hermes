@@ -123,21 +123,21 @@ export default function FormDialog() {
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
     switch (value) {
-      case 'day(s)':
-        adjustedFrequency *= 86400 * 1000;
-        break;
-      case 'hour(s)':
-        adjustedFrequency *= 3600 * 1000;
-        break;
-      case 'minute(s)':
-        adjustedFrequency *= 60 * 1000;
-        break;
-      case 'second(s)':
-        adjustedFrequency *= 1000;
-        break;
-      default:
-        console.log('Error in frequencyConverter');
-        break;
+    case 'day(s)':
+      adjustedFrequency *= 86400 * 1000;
+      break;
+    case 'hour(s)':
+      adjustedFrequency *= 3600 * 1000;
+      break;
+    case 'minute(s)':
+      adjustedFrequency *= 60 * 1000;
+      break;
+    case 'second(s)':
+      adjustedFrequency *= 1000;
+      break;
+    default:
+      console.log('Error in frequencyConverter');
+      break;
     }
     return adjustedFrequency;
   };
