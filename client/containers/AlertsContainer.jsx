@@ -3,7 +3,6 @@ import Alerts from '../components/Alerts';
 import CreateAlert from '../components/CreateAlert';
 import TextField from '../components/AlertSearchBox';
 import Button from '@material-ui/core/Button';
-import sendEmail from '../monitor-funcs/email_smtp';
 
 const AlertsContainer = () => {
   // const logs = useAxios()
