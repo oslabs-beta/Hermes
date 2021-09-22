@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Hermes-A-Gradient-cropped.jpg?raw=true"/>
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Hermes-A-Gradient-cropped.png?raw=true"/>
 </p>
 
 <p align="center">
