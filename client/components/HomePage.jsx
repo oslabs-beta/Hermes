@@ -7,10 +7,6 @@ import CreateIcon from '@material-ui/icons/Create';
 const HomePage = () => {
   return (
     <>
-      {/* <div className="features">
-        <h2 className="feature-title">Features</h2>
-        
-      </div> */}
       <div className='home'>
         <Link to='/logs' className='link'>
           <div className='card'>
@@ -26,23 +22,10 @@ const HomePage = () => {
               </div>
               <div className='card__details'>
                 <ul>
-                  <li>View log data from a cluster</li>
-                  <li>Filter and sort thru logs</li>
+                  <li>View and filter log data from a cluster</li>
                 </ul>
-                <a href='#popup' className='btn btn--white'>
-                  Explore now!
-                </a>
               </div>
             </div>
-            {/* <div className='card__side card__side--back card__side--back-2'>
-              <div className='card__cta'>
-                <div className='card__price-box'>
-                </div>
-                
-                  Explore now!
-                </a>
-              </div>
-            </div> */}
           </div>
         </Link>
 
@@ -61,22 +44,11 @@ const HomePage = () => {
               <div className='card__details'>
                 <ul>
                   <li>
-                    Utilize graphs and charts to better understand log data
+                    View recent log counts per hour
                   </li>
                 </ul>
-                <a href='#popup' className='btn btn--white'>
-                  Explore now!
-                </a>
               </div>
             </div>
-            {/* <div className='card__side card__side--back card__side--back-2'>
-              <div className='card__cta'>
-                <div className='card__price-box'></div>
-                <a href='#popup' className='btn btn--white'>
-                  Explore now!
-                </a>
-              </div>
-            </div> */}
           </div>
         </Link>
 
@@ -94,21 +66,10 @@ const HomePage = () => {
               </div>
               <div className='card__details'>
                 <ul>
-                  <li>Create and manage alerts</li>
-                  <li>Configure custom notification actions</li>
+                  <li>Create alerts and configure custom notification actions</li>
                 </ul>
-                <a href='#popup' className='btn btn--white'>
-                  Explore now!
-                </a>
               </div>
             </div>
-
-            {/* <div className='card__side card__side--back card__side--back-2'>
-              <div className='card__cta'>
-                <div className='card__price-box'>
-                </div>
-              </div>
-            </div> */}
           </div>
         </Link>
 
@@ -126,19 +87,10 @@ const HomePage = () => {
               </div>
               <div className='card__details'>
                 <ul>
-                  <li>Create and store data in an elasticsearch index</li>
+                  <li>Create and delete index patterns for searching your Elasticsearch cluster</li>
                 </ul>
-                <a href='#popup' className='btn btn--white'>
-                  Explore now!
-                </a>
               </div>
             </div>
-            {/* <div className='card__side card__side--back card__side--back-2'>
-              <div className='card__cta'>
-                <div className='card__price-box'>
-                </div>
-              </div>
-            </div> */}
           </div>
         </Link>
       </div>
