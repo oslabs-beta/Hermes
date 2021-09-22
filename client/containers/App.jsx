@@ -35,8 +35,12 @@ const App = () => {
     <Router>
       <header className='header'>
         <Nav />
-        <MonitorButton />
-        <img src={img} alt='Hermes logo' />
+        <a href='/'>
+          <img id='hermes-logo' src={img} alt='Hermes logo' />
+        </a>
+        <div className='header-buttons'>
+          <MonitorButton />
+        </div>
       </header>
       <div className='app-container'>
         {false && <SideBar />}
