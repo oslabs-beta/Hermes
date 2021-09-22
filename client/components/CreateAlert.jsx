@@ -7,18 +7,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditorContainer from './EditorContainer';
-import sendEmail from '../monitor-funcs/email_smtp';
+import { Link } from '@material-ui/core';
 import {
   indexPatternsState,
   createAlertInputState,
   currentAlertsState,
   lastChosenIndexPatternState,
   monitorFrequencyInputState,
-  notificationFrequencyInputState,
 } from '../atom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import SelectBox from './SelectBox';
+
+const defaultStateValues = {
+  alertName: '',
+  monitorFrequency: '',
+  monitorFrequencyUnit: '',
+  emailAddress: '',
+  emailSubject: '',
+  emailBody:
+    'Within the last hour, there was at least one log with "ERROR" in it. The message was: {{log}}',
+  indexPattern: '',
+};
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -34,9 +44,6 @@ export default function FormDialog() {
   const [monitorFrequency, setMonitorFrequency] = useRecoilState(
     monitorFrequencyInputState
   );
-  const [notificationFrequency, setNotificationFrequency] = useRecoilState(
-    notificationFrequencyInputState
-  );
 
   useEffect(() => {
     axios
@@ -47,7 +54,8 @@ export default function FormDialog() {
   useEffect(() => {
     let activateCreateButton = true;
     for (const key in createAlertInput) {
-      if (createAlertInput[key] === '') activateCreateButton = false;
+      if (createAlertInput[key] === '' && key !== 'indexPattern')
+        activateCreateButton = false;
     }
     if (lastChosenIndexPattern === '') activateCreateButton = false;
     setDisableButton(!activateCreateButton);
@@ -71,6 +79,12 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    const newCreateAlertInput = Object.assign(
+      { ...createAlertInput },
+      defaultStateValues
+    );
+    setMonitorFrequency('');
+    setCreateAlertInput(newCreateAlertInput);
   };
 
   // add new alert to the state that contains all user's alerts
@@ -84,16 +98,11 @@ export default function FormDialog() {
       .then((result) => {
         setCurrentAlerts(result.data);
         setOpen(false);
-        const newCreateAlertInput = { ...createAlertInput };
-        newCreateAlertInput.alertName = '';
-        newCreateAlertInput.monitorFrequency = '';
-        newCreateAlertInput.monitorFrequencyUnit = '';
-        newCreateAlertInput.notificationFrequency = '';
-        newCreateAlertInput.notificationFrequencyUnit = '';
-        newCreateAlertInput.emailAddress = '';
-        newCreateAlertInput.emailSubject = '';
-        newCreateAlertInput.emailBody = '';
-        newCreateAlertInput.indexPattern = '';
+        const newCreateAlertInput = Object.assign(
+          { ...createAlertInput },
+          defaultStateValues
+        );
+        setMonitorFrequency('');
         setCreateAlertInput(newCreateAlertInput);
       })
       .catch((error) =>
@@ -146,21 +155,6 @@ export default function FormDialog() {
       ...createAlertInput,
       monitorFrequency: convertedMonitorFrequency,
       monitorFrequencyUnit: event.target.value,
-    });
-  };
-  const handleNotificationFrequencyChange = (event) => {
-    setNotificationFrequency(event.target.value);
-  };
-  const handleNotificationFrequencyUnitChange = (event) => {
-    // convert frequency to milliseconds and add to state
-    const convertedNotificationFrequency = frequencyConverter(
-      notificationFrequency,
-      event.target.value
-    );
-    setCreateAlertInput({
-      ...createAlertInput,
-      notificationFrequency: convertedNotificationFrequency,
-      notificationFrequencyUnit: event.target.value,
     });
   };
   return (
@@ -263,31 +257,24 @@ export default function FormDialog() {
               onChange={handleChange}
               style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
             />
-            <SelectBox
-              optionsArray={numbers}
-              labelText='Notification Frequency'
-              valueProp={notificationFrequency}
-              handleChange={handleNotificationFrequencyChange}
-              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
-              inputLabelId='notification-frequency-dropdown-label'
-              selectId='notification-frequency-dropdown'
-            />
-            <SelectBox
-              optionsArray={units}
-              labelText='Unit'
-              valueProp={createAlertInput.notificationFrequencyUnit}
-              handleChange={handleNotificationFrequencyUnitChange}
-              styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
-              inputLabelId='notification-frequency-unit-dropdown-label'
-              selectId='notification-frequency-unit-dropdown'
-            />
           </div>
+          <DialogContentText margin='dense'>
+            In the email body, you can use&nbsp;
+            <Link
+              href='https://mustache.github.io/mustache.5.html'
+              target='_blank'
+            >
+              &#123;&#123; mustache &#125;&#125;
+            </Link>
+            &nbsp;template syntax to access any field from the log that had the
+            highest score of your hits.
+          </DialogContentText>
           <TextField
             size='small'
             required
             id='emailBody'
             multiline
-            margin='normal'
+            margin='dense'
             rows={4}
             label='Email Body'
             variant='outlined'

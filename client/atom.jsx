@@ -36,11 +36,10 @@ export const createAlertInputState = atom({
     alertName: '',
     monitorFrequency: '',
     monitorFrequencyUnit: '',
-    notificationFrequency: '',
-    notificationFrequencyUnit: '',
     emailAddress: '',
     emailSubject: '',
-    emailBody: '',
+    emailBody:
+      'Within the last hour, there was at least one log with "ERROR" in it. The message was: {{log}}',
     editorContents: `{
   "bool": {
     "must": [
@@ -80,15 +79,5 @@ export const monitorFrequencyInputState = atom({
 
 export const monitorFrequencyUnitInputState = atom({
   key: 'monitorFrequencyUnitInputState',
-  default: '',
-});
-
-export const notificationFrequencyInputState = atom({
-  key: 'notificationFrequencyInputState',
-  default: '',
-});
-
-export const notificationFrequencyUnitInputState = atom({
-  key: 'notificationFrequencyUnitInputState',
   default: '',
 });
