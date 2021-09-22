@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 // import {useAxios} from '../hooks/useAxios';
 import Indices from '../components/Indices';
+import SelectBox from '../components/SelectBox';
+
+
 const CreateIndex = () => {
   const [alias, setAlias] = useState([]);
 
@@ -9,12 +12,15 @@ const CreateIndex = () => {
   const [patterns, setPatterns] = useState([]);
 
   const [marked, setMarked] = useState('');
+ 
 
   useEffect(() => {
     fetch('/indexpatterns')
       .then((res) => res.json())
       .then((res) => setPatterns(res));
-  }, [marked]);
+
+    console.log('Error in effect');
+  }, []);//
 
   useEffect(() => {
     fetch('/logs/esindices')
@@ -28,23 +34,10 @@ const CreateIndex = () => {
     arr.push(key);
   }
 
-  function deleter(data) {
-    fetch(`/indexpatterns`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        // update the dropdown
-      })
-
-      .catch((err) => console.log('Error in deleter function:', err));
-  }
-
+ 
+  
   function poster(data) {
+     
     fetch(`/indexpatterns`, {
       method: 'POST',
       headers: {
@@ -55,10 +48,35 @@ const CreateIndex = () => {
       .then((resp) => resp.json())
       .then((data) => {
         // update dropdown
+       
       })
 
       .catch((err) => console.log('Error in poster:', err));
+    
+    
   }
+
+  function deleter(data) {
+    
+    fetch(`/indexpatterns`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        // update the dropdown
+     
+      })
+
+      .catch((err) => console.log('Error in deleter function:', err));
+    
+  }
+
+
+  
   function truer(arr, input) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].includes(input) || input.charAt(input.length - 1) === '*') return true;
@@ -73,11 +91,20 @@ const CreateIndex = () => {
         <input type="text" className="index-field" value={input} onChange={(e)=> setInput(e.target.value)}/>
         {truer(arr, input) && <button type="button" onClick={()=> poster({'indexPattern': input})}>Add Index</button>}
         <div className="delete-indexes">
+          {/* <SelectBox
+            optionsArray={patterns}
+            labelText='Monitoring Frequency'
+            // valueProp={patterns}
+            // handleChange={setMarked(}
+            styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
+
+          /> */}
           <select name="patterns" className="index-patterns" onChange={(e)=> setMarked(e.target.value)}>
             {patterns && patterns.map((index, i)=>{
               return <option value={index} key ={i}>{index}</option>;
             })}
-          </select><button type="button" onClick={()=> deleter({'indexPattern': marked})}>delete</button></div>
+          </select> 
+          <button type="button" onClick={()=> deleter({'indexPattern': marked})}>delete</button></div>
       </header>
       <div className='sources-container'>
         <h1>Existing Elasticsearch Indices</h1>
