@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
- A customizable Elasticsearch alert manager.
+ A customizable alert manager for Elasticsearch
 </p>
 
 ---
