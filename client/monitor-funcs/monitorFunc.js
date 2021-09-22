@@ -1,5 +1,5 @@
 import axios from 'axios';
-import sendEmail from './email_smtp';
+import sendEmail from '../../email_smtp';
 import Mustache from 'mustache';
 // This function will send search queries to elasticsearch at a frequency defined in the alert input
 const monitorFunc = (alert) => {
