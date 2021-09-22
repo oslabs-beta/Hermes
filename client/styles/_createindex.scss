@@ -1,22 +1,35 @@
 .index-titler{
     color: black;
     font-size:1.4rem;
+    
 }
 
 .index-container {
-  min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    min-width: 60%;
+    padding: 5rem;
+    margin: 1rem auto;
+    background-color:whitesmoke;
+    gap: 2rem;
 }
 
 .indices {
   color: black;
   border: 1px solid black;
+  width: 100%;
 }
 
 .sources-container{
 display: flex;
 flex-direction: column;
+align-items: center;
     color: black;
     padding: 2rem;
+    font-size: .8rem;
 }
 
 // .index-patterns{
@@ -34,4 +47,6 @@ flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }
+

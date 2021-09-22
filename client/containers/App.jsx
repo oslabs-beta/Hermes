@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import SideBar from './SideBar';
+import SideBar from '../components/SideBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LogsContainer from '../containers/LogsContainer';
-import HomePage from './HomePage';
-import AlertsContainer from '../containers/AlertsContainer';
-import CreateIndex from '../containers/CreateIndex';
-import Visualizer from '../containers/Visualizer';
-import MonitorButton from './MonitorButton';
-import Nav from './Nav';
+import LogsContainer from './LogsContainer';
+import HomePage from '../components/HomePage';
+import AlertsContainer from './AlertsContainer';
+import CreateIndex from './CreateIndex';
+import Visualizer from './Visualizer';
+import MonitorButton from '../components/MonitorButton';
+import Nav from '../components/Nav';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { intervalIdsState, currentAlertsState } from '../atom';
 import axios from 'axios';
@@ -35,8 +35,12 @@ const App = () => {
     <Router>
       <header className='header'>
         <Nav />
-        <MonitorButton />
-        <img src={img} alt='Hermes logo' />
+        <a href='/'>
+          <img id='hermes-logo' src={img} alt='Hermes logo' />
+        </a>
+        <div className='header-buttons'>
+          <MonitorButton />
+        </div>
       </header>
       <div className='app-container'>
         {false && <SideBar />}
