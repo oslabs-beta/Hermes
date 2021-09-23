@@ -5,10 +5,10 @@ import {
   monitorStatusState,
   currentAlertsState,
 } from '../atom';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import monitorFunc from '../monitor-funcs/monitorFunc';
 
-const MonitorButton = () => {
+const MonitorButton = ({ functional }) => {
   const [monitorStatus, setMonitorStatus] = useRecoilState(monitorStatusState);
   const [intervalIds, setIntervalIds] = useRecoilState(intervalIdsState);
   const currentAlerts = useRecoilValue(currentAlertsState);
@@ -29,7 +29,6 @@ const MonitorButton = () => {
       setMonitorStatus('Off');
     }
   };
-  // return <button onClick={clickHandler}>Monitoring: {monitorStatus}</button>;
   return (
     <Button
       style={{

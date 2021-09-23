@@ -1,0 +1,64 @@
+.page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  font-size: xx-large;
+  color: var(--color-primary-dark);
+}
+
+.alert-inputs {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-left: 3rem;
+  align-self: flex-start;
+}
+
+.white-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(black, 0.15);
+  min-width: 80rem;
+}
+
+.editor-container-div {
+  border: 1px solid #3c9eff;
+}
+
+.create-alert-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-details {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-alert-input {
+  width: 20rem;
+  min-width: 5rem;
+}
+
+#alertName #emailAddress {
+  margin-right: 0.5rem;
+}
+
+#alerts-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+.text-and-button {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}

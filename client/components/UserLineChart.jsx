@@ -22,12 +22,13 @@ const containerStyle = {
   height: '50rem',
 };
 
-const UserLineChart = () => {
+const UserLineChart = ({ lastChosenIndexPattern }) => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
       .get('/logs/hourbuckets', {
         params: {
+          indexPattern: lastChosenIndexPattern,
           start: 'now-14d/d',
           end: 'now/d',
         },
@@ -52,7 +53,7 @@ const UserLineChart = () => {
       .catch((error) =>
         console.log('Error in UserLineChart useEffect: ', error)
       );
-  }, []);
+  }, [lastChosenIndexPattern]);
 
   return (
     data && (

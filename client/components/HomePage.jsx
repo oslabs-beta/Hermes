@@ -8,6 +8,29 @@ const HomePage = () => {
   return (
     <>
       <div className='home'>
+        <Link to='/alertsManager' className='link'>
+          <div className='card'>
+            <div className='card__side card__side--front'>
+              <div className='card__picture card__picture--2'>&nbsp;</div>
+              <h4 className='card__heading'>
+                <span className='card__heading-span card__heading-span--2'>
+                  Alerts
+                </span>
+              </h4>
+              <div className='card__picture card__picture--2'>
+                <AnnouncementIcon style={{ fontSize: 80 }} />
+              </div>
+              <div className='card__details'>
+                <ul>
+                  <li>
+                    Create alerts and configure custom notification actions
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Link>
+
         <Link to='/logs' className='link'>
           <div className='card'>
             <div className='card__side card__side--front'>
@@ -43,30 +66,7 @@ const HomePage = () => {
               </div>
               <div className='card__details'>
                 <ul>
-                  <li>
-                    View recent log counts per hour
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </Link>
-
-        <Link to='/alertsManager' className='link'>
-          <div className='card'>
-            <div className='card__side card__side--front'>
-              <div className='card__picture card__picture--2'>&nbsp;</div>
-              <h4 className='card__heading'>
-                <span className='card__heading-span card__heading-span--2'>
-                  Manage Alerts
-                </span>
-              </h4>
-              <div className='card__picture card__picture--2'>
-                <AnnouncementIcon style={{ fontSize: 80 }} />
-              </div>
-              <div className='card__details'>
-                <ul>
-                  <li>Create alerts and configure custom notification actions</li>
+                  <li>View recent log counts per hour</li>
                 </ul>
               </div>
             </div>
@@ -79,7 +79,7 @@ const HomePage = () => {
               <div className='card__picture card__picture--2'>&nbsp;</div>
               <h4 className='card__heading'>
                 <span className='card__heading-span card__heading-span--2'>
-                  Create An Index
+                  Index Patterns
                 </span>
               </h4>
               <div className='card__picture card__picture--2'>
@@ -87,7 +87,10 @@ const HomePage = () => {
               </div>
               <div className='card__details'>
                 <ul>
-                  <li>Create and delete index patterns for searching your Elasticsearch cluster</li>
+                  <li>
+                    Create and delete index patterns for searching your
+                    Elasticsearch cluster
+                  </li>
                 </ul>
               </div>
             </div>
