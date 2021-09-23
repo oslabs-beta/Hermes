@@ -8,16 +8,16 @@ const AlertsContainer = () => {
   // const logs = useAxios()
 
   return (
-    <div>
+    <div id='alerts-page'>
       <header className='alerts-display-header'>Alerts</header>
-      <div className='alert-inputs'>
-        <TextField id='searchBox' label='test' style={{ fontSize: '16px' }} />
-        <CreateAlert
-          variant='contained'
-          style={{ fontSize: '16px' }}
-        ></CreateAlert>
-      </div>
       <div className='alert-box'>
+        <div className='alert-inputs'>
+          <TextField id='searchBox' label='test' style={{ fontSize: '16px' }} />
+          <CreateAlert
+            variant='contained'
+            style={{ fontSize: '16px' }}
+          ></CreateAlert>
+        </div>
         <Alerts />
       </div>
     </div>

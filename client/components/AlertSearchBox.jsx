@@ -25,7 +25,7 @@ export default function BasicTextFields() {
     <TextField
       className={classes.root}
       id='standard-basic'
-      label='Search for Alerts'
+      label='Search by Alert Name'
       onChange={handleChange}
     />
   );

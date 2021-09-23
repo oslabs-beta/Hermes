@@ -24,36 +24,13 @@ const Nav = () => {
         {toggle && (
           <ul className='navigation__list'>
             <Link to='/'>
-              {' '}
-              <li className='navigation__item'>
-                <a
-                  href=''
-                  className='navigation__link'
-                  onClick={() => setToggle(!toggle)}
-                >
-                  <span>01</span>Home
-                </a>
-              </li>
-            </Link>
-            <Link to='/logs'>
               <li className='navigation__item'>
                 <a
                   href='#'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
-                  <span>02</span>View Logs
-                </a>
-              </li>
-            </Link>
-            <Link to='/visualizer'>
-              <li className='navigation__item'>
-                <a
-                  href='#'
-                  className='navigation__link'
-                  onClick={() => setToggle(!toggle)}
-                >
-                  <span>03</span>Visualize Logs
+                  <span>Dashboard</span>
                 </a>
               </li>
             </Link>
@@ -64,7 +41,29 @@ const Nav = () => {
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
-                  <span>04</span>Manage Alerts
+                  <span>Manage Alerts</span>
+                </a>
+              </li>
+            </Link>
+            <Link to='/logs'>
+              <li className='navigation__item'>
+                <a
+                  href='#'
+                  className='navigation__link'
+                  onClick={() => setToggle(!toggle)}
+                >
+                  <span>View Logs</span>
+                </a>
+              </li>
+            </Link>
+            <Link to='/visualizer'>
+              <li className='navigation__item'>
+                <a
+                  href='#'
+                  className='navigation__link'
+                  onClick={() => setToggle(!toggle)}
+                >
+                  <span>Visualize Logs</span>
                 </a>
               </li>
             </Link>
@@ -75,7 +74,7 @@ const Nav = () => {
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
-                  <span>05</span>Create An Index
+                  <span>Manage Index Patterns</span>
                 </a>
               </li>
             </Link>

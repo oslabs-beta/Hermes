@@ -215,7 +215,7 @@ export default function CollapsibleTable() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className='graphic-element'>
       <Table aria-label='collapsible table'>
         <TableHead>
           <TableRow>

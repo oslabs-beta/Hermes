@@ -34,12 +34,17 @@ const App = () => {
   return (
     <Router>
       <header className='header'>
-        <Nav />
-        <a href='/'>
-          <img id='hermes-logo' src={img} alt='Hermes logo' />
-        </a>
+        <div id='hidden-button'>
+          <MonitorButton functional={false} />
+        </div>
+        <div>
+          <Nav />
+          <a href='/'>
+            <img id='hermes-logo' src={img} alt='Hermes logo' />
+          </a>
+        </div>
         <div className='header-buttons'>
-          <MonitorButton />
+          <MonitorButton functional={true} />
         </div>
       </header>
       <div className='app-container'>

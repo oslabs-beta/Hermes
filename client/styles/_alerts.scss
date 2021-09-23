@@ -16,8 +16,10 @@
 
 .alert-box {
   display: flex;
-  justify-content: center;
-  width: 100rem;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 3px;
 }
 
 .editor-container-div {
@@ -42,4 +44,11 @@
 
 #alertName #emailAddress {
   margin-right: 0.5rem;
+}
+
+#alerts-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3rem;
 }
