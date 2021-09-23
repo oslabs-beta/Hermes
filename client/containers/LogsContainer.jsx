@@ -33,7 +33,7 @@ const LogsContainer = () => {
           setLogs(res.data.hits.hits);
         })
         .catch((error) => {
-          console.log('Error in useAxios useEffect: cancelled. error: ', error);
+          console.log('Error in getLogs get request: ', error);
         });
     }
   };
