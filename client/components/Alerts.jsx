@@ -97,7 +97,12 @@ function Row(props) {
                 <Table
                   size='small'
                   aria-label='purchases'
-                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                  style={{
+                    marginBottom: '2rem',
+                    marginTop: '1rem',
+                    backgroundColor: 'white',
+                    border: 'hidden',
+                  }}
                 >
                   <TableBody>
                     <TableRow key={row.monitorFrequency}>
@@ -123,7 +128,12 @@ function Row(props) {
                 <Table
                   size='small'
                   aria-label='purchases'
-                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                  style={{
+                    marginBottom: '2rem',
+                    marginTop: '1rem',
+                    backgroundColor: 'white',
+                    border: 'hidden',
+                  }}
                 >
                   <TableBody>
                     <TableRow>
@@ -137,7 +147,12 @@ function Row(props) {
                 <Table
                   size='small'
                   aria-label='purchases'
-                  style={{ marginBottom: '2rem', marginTop: '1rem' }}
+                  style={{
+                    marginBottom: '2rem',
+                    marginTop: '1rem',
+                    backgroundColor: 'white',
+                    border: 'hidden',
+                  }}
                 >
                   <TableBody>
                     <TableRow>
@@ -180,7 +195,17 @@ export default function CollapsibleTable() {
 
   return (
     <TableContainer component={Paper} className='graphic-element'>
-      <Table aria-label='collapsible table' padding='normal' size='small'>
+      <Table
+        aria-label='collapsible table'
+        padding='normal'
+        size='small'
+        style={{
+          border: 'hidden',
+          margin: 0,
+          marginTop: '3rem',
+          backgroundColor: 'whitesmoke',
+        }}
+      >
         <TableHead>
           <TableRow>
             <TableCell />

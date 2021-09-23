@@ -14,7 +14,7 @@ const HomePage = () => {
               <div className='card__picture card__picture--2'>&nbsp;</div>
               <h4 className='card__heading'>
                 <span className='card__heading-span card__heading-span--2'>
-                  Manage Alerts
+                  Alerts
                 </span>
               </h4>
               <div className='card__picture card__picture--2'>
@@ -79,7 +79,7 @@ const HomePage = () => {
               <div className='card__picture card__picture--2'>&nbsp;</div>
               <h4 className='card__heading'>
                 <span className='card__heading-span card__heading-span--2'>
-                  Manage Index Patterns
+                  Index Patterns
                 </span>
               </h4>
               <div className='card__picture card__picture--2'>

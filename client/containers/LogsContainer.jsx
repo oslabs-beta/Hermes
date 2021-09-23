@@ -1,25 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useAxios } from '../hooks/useAxios';
-import { logState } from '../atom';
-import { TextField } from '@mui/material';
+import { logsState } from '../atom';
+import { indexPatternsState, lastChosenIndexPatternState } from '../atom';
+import { TextField, Button } from '@mui/material';
 import SelectBox from '../components/SelectBox';
 import SimpleTable from '../components/SimpleTable';
+import axios from 'axios';
 
 const LogsContainer = () => {
-  const [field, setField] = useState('*');
-  const [value, setValue] = useState('*');
-  useAxios(`/logs/logsbyindex/?index=logstash-*&field=${field}&value=${value}`);
-
-  const [patterns, setPatterns] = useState([]);
+  const [indexPatterns, setIndexPatterns] = useRecoilState(indexPatternsState);
+  const [lastChosenIndexPattern, setLastChosenIndexPattern] = useRecoilState(
+    lastChosenIndexPatternState
+  );
+  const [logs, setLogs] = useRecoilState(logsState);
+  const [field, setField] = useState('');
+  const [value, setValue] = useState('');
+  // handle change func passed down to the index pattern select box
+  const handleDropdownChange = (event) => {
+    setLastChosenIndexPattern(event.target.value);
+  };
+  const getLogs = () => {
+    if (lastChosenIndexPattern) {
+      let fieldText = field;
+      let valueText = value;
+      if (fieldText === '') fieldText = '*';
+      if (valueText === '') valueText = '*';
+      axios
+        .get(
+          `/logs/logsbyindex/?index=${lastChosenIndexPattern}&field=${fieldText}&value=${valueText}`
+        )
+        .then((res) => {
+          setLogs(res.data.hits.hits);
+        })
+        .catch((error) => {
+          console.log('Error in useAxios useEffect: cancelled. error: ', error);
+        });
+    }
+  };
 
   useEffect(() => {
-    fetch('/indexpatterns')
-      .then((res) => res.json())
-      .then((res) => setPatterns(res));
-  }, [setPatterns]);
+    axios
+      .get('/indexpatterns')
+      .then((result) => {
+        setIndexPatterns(result.data);
+        setLastChosenIndexPattern(result.data[0]);
+      })
+      .catch((error) => console.log('Error in Visualizer useEffect: ', error));
+  }, []);
 
-  const data1 = [...JSON.parse(JSON.stringify(useRecoilValue(logState)))];
+  useEffect(getLogs, [lastChosenIndexPattern]);
+
+  const data1 = [...JSON.parse(JSON.stringify(logs))];
   const seter = new Set();
   const arr = [];
   // build an array of objects. Each object has one property, Log. The value is the _source object stringified.
@@ -44,18 +75,42 @@ const LogsContainer = () => {
     <div className='log-page-container'>
       <header className='page-header'>View Logs</header>
       <div className='white-box'>
-        <p className='alert-inputs'>
-          Filter logs by inputting a value that must be included in the selected
-          field:
-        </p>
-        <div className='index-pattern-input'>
+        <div className='text-and-button alert-inputs'>
+          <p>Select an index pattern:</p>
+        </div>
+        <div className='text-and-button alert-inputs'>
+          <SelectBox
+            optionsArray={indexPatterns}
+            requiredProp={true}
+            labelText='Index Pattern'
+            valueProp={lastChosenIndexPattern}
+            handleChange={handleDropdownChange}
+            styleProp={{
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
+            inputLabelId='index-pattern-dropdown-label'
+            selectId='index-pattern-dropdown'
+          />
+        </div>
+        <div className='text-and-button alert-inputs'>
+          <p>
+            Filter logs by inputting a value that must be included in the
+            selected field:
+          </p>
+        </div>
+        <div className='text-and-button alert-inputs'>
           <SelectBox
             optionsArray={selectArr}
             labelText='Field'
             requiredProp={false}
             valueProp={field}
             handleChange={(e) => setField(e.target.value)}
-            styleProp={{ width: '15rem' }}
+            styleProp={{
+              width: '15rem',
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
             inputLabelId='field-dropdown-label'
             selectId='field-dropdown'
           />
@@ -66,12 +121,29 @@ const LogsContainer = () => {
             id='filter-input'
             variant='outlined'
             className='filter-input'
-            style={{ width: '15rem', marginLeft: '0.5rem' }}
+            style={{
+              width: '15rem',
+              marginLeft: '0.5rem',
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
             }}
           />
+          <Button
+            style={{
+              background:
+                'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
+              color: '#faf9f9',
+              height: '3.138rem',
+              marginLeft: '2rem',
+            }}
+            onClick={getLogs}
+          >
+            Filter Search Results
+          </Button>
         </div>
         <div className='logs'>
           <header className='logs-display-header'></header>

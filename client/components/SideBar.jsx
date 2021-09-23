@@ -14,7 +14,7 @@ const SideBar = () => {
         <header>Visualize Logs</header>
       </Link>
       <Link to='/alertsManager'>
-        <header>Manage Alerts</header>
+        <header>Alerts</header>
       </Link>
       <Link to='/indices'>
         <header>Create An Index</header>

@@ -41,7 +41,7 @@ const Nav = () => {
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
-                  <span>Manage Alerts</span>
+                  <span>Alerts</span>
                 </Link>
               </li>
             </div>
@@ -74,7 +74,7 @@ const Nav = () => {
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
-                  <span>Manage Index Patterns</span>
+                  <span>Index Patterns</span>
                 </Link>
               </li>
             </div>

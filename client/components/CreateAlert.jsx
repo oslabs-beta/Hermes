@@ -158,21 +158,18 @@ export default function FormDialog() {
     });
   };
   return (
-    <div>
-      <div className='text-and-button'>
-        <p>Configure a new email alert:</p>
-        <Button
-          style={{
-            background:
-              'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
-            color: '#faf9f9',
-            marginLeft: '1rem',
-          }}
-          onClick={handleClickOpen}
-        >
-          Create New Alert
-        </Button>
-      </div>
+    <div className='text-and-button alert-inputs'>
+      <Button
+        style={{
+          background:
+            'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
+          color: '#faf9f9',
+          alignSelf: 'left',
+        }}
+        onClick={handleClickOpen}
+      >
+        Create New Alert
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}

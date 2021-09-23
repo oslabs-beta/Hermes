@@ -16,7 +16,7 @@ export default function AlertSearchBox() {
       label='Search by Alert Name'
       variant='outlined'
       size='small'
-      style={{ marginLeft: '1rem', width: '20rem' }}
+      style={{ width: '20rem' }}
       onChange={handleChange}
     />
   );

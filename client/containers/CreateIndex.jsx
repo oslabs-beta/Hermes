@@ -34,10 +34,10 @@ const CreateIndex = () => {
   };
 
   const arr = [];
-
   for (let key in alias) {
     if (key[0] !== '.') arr.push(key);
   }
+  arr.sort();
 
   function poster(data) {
     fetch(`/indexpatterns`, {
@@ -85,10 +85,12 @@ const CreateIndex = () => {
     <div className='outer-page'>
       <header className='page-header'>Manage Index Patterns</header>
       <div className='white-box'>
-        <p className='alert-inputs'>
-          Add a new index pattern to query multiple Elasticsearch indices:
-        </p>
-        <div className='index-pattern-input'>
+        <div className='text-and-button alert-inputs'>
+          <p>
+            Add a new index pattern to query multiple Elasticsearch indices:
+          </p>
+        </div>
+        <div className='text-and-button alert-inputs'>
           <TextField
             size='small'
             margin='normal'
@@ -96,7 +98,11 @@ const CreateIndex = () => {
             id='indexPattern'
             variant='outlined'
             className='index-field'
-            style={{ width: '30rem' }}
+            style={{
+              width: '30rem',
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
@@ -106,8 +112,7 @@ const CreateIndex = () => {
                 background:
                   'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
                 color: '#faf9f9',
-                height: '3.3rem',
-                marginTop: '.8rem',
+                height: '3.138rem',
                 marginLeft: '2rem',
               }}
               onClick={() => poster({ indexPattern: input })}
@@ -116,15 +121,21 @@ const CreateIndex = () => {
             </Button>
           )}
         </div>
-        <p className='alert-inputs'>Delete an index pattern:</p>
-        <div className='index-pattern-input'>
+        <div className='text-and-button alert-inputs'>
+          <p>Delete an index pattern:</p>
+        </div>
+        <div className='text-and-button alert-inputs'>
           <SelectBox
             optionsArray={indexPatterns}
             labelText='Index Patterns'
             requiredProp={false}
             valueProp={lastChosenIndexPattern}
             handleChange={handleDropdownChange}
-            styleProp={{ width: '30rem' }}
+            styleProp={{
+              width: '30rem',
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
             inputLabelId='delete-index-pattern-dropdown-label'
             selectId='delete-index-pattern-dropdown'
           />
@@ -133,8 +144,7 @@ const CreateIndex = () => {
               background:
                 'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
               color: '#faf9f9',
-              height: '3.3rem',
-              marginTop: '.8rem',
+              height: '3.138rem',
               marginLeft: '2rem',
             }}
             onClick={() => deleter({ indexPattern: lastChosenIndexPattern })}

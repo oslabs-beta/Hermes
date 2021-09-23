@@ -8,7 +8,7 @@
 
 ---
 
-## Manage Alerts
+## Alerts
 
 View and delete existing alert configurations that are continually monitored at your desired frequency. Create alerts by specifying the new alert name, the index pattern to monitor, the frequency at which the Elasticsearch cluster will be searched, the rule to search for in the cluster, and the customized email that will be sent when the Elasticsearch query responds with a hit. Hermes uses Mustache.js which allows you to include any field from the top hit in the body of your alert email.
 
@@ -26,7 +26,7 @@ Visualize the count of logs that were created every hour over the past two weeks
 
 Add demo gif
 
-## Manage Index Patterns
+## Index Patterns
 
 Create and delete index patterns so that you can query multiple indices from your Elasticsearch cluster at once.
 
