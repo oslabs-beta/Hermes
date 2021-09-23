@@ -20,19 +20,25 @@ View and delete existing alert configurations that are continually monitored at 
 
 View individual logs using a simple filter.
 
-Add demo gif
+<p align="center">
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/View-Logs-Demo.gif?raw=true"/>
+</p>
 
 ## Visualize Logs
 
 Visualize the count of logs that were created every hour over the past two weeks.
 
-Add demo gif
+<p align="center">
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Visualize-Logs-Demo.gif?raw=true"/>
+</p>
 
 ## Index Patterns
 
 Create and delete index patterns so that you can query multiple indices from your Elasticsearch cluster at once.
 
-Add demo gif
+<p align="center">
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Index-Patterns-Demo.gif?raw=true"/>
+</p>
 
 # Getting started
 
