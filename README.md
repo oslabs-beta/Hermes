@@ -13,7 +13,13 @@
 View and delete existing alert configurations that are continually monitored at your desired frequency. Create alerts by specifying the new alert name, the index pattern to monitor, the frequency at which the Elasticsearch cluster will be searched, the rule to search for in the cluster, and the customized email that will be sent when the Elasticsearch query responds with a hit. Hermes uses Mustache.js which allows you to include any field from the top hit in the body of your alert email.
 
 <p align="center">
-  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Configuring-Alerts.gif?raw=true"/>
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Alerts-Demo.gif?raw=true"/>
+</p>
+
+## Example Email
+
+<p align="center">
+  <img src="https://github.com/oslabs-beta/Hermes/blob/dev/assets/images/Example-Email.png?raw=true"/>
 </p>
 
 ## View Logs
@@ -62,8 +68,8 @@ Running Hermes the first time:
 
 1. Create a new Gmail account.
 2. Open settings and disable Two-Factor Authentication and allow access in Gmail for less secure apps. Configuring these settings will allow Hermes to send emails on your behalf.
-3. Open the `email_smtp.js` file located in the top directory of your cloned repository
-4. Enter your new email `Username` and `Password` into the object passed into `Email.send()`
+3. Open the `email_smtp.js` file located in the top directory of your cloned repository.
+4. Enter your new password into `Password` and your new email address into the `Username` and `From` properties of the object passed into `Email.send()`
 
 ---
 
