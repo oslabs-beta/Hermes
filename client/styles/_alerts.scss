@@ -1,25 +1,29 @@
-.alerts-display-header {
+.page-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20rem;
-  height: 5rem;
+  justify-content: center;
+  height: 6rem;
   font-size: xx-large;
-  color: black;
+  color: var(--color-primary-dark);
 }
 
 .alert-inputs {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  margin-top: 2rem;
+  margin-left: 3rem;
+  align-self: flex-start;
 }
 
-.alert-box {
+.white-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(black, 0.15);
+  min-width: 80rem;
 }
 
 .editor-container-div {
@@ -50,5 +54,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
+}
+
+.text-and-button {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
 }

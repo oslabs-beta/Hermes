@@ -52,6 +52,11 @@ body {
   justify-content: space-between;
 }
 
+p {
+  color: var(--color-black);
+  font-size: 1.6rem;
+}
+
 .link {
   color: var(--color-grey-light-1);
   margin: 2rem 1rem;

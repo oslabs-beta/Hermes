@@ -5,7 +5,7 @@ import {
   monitorStatusState,
   currentAlertsState,
 } from '../atom';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import monitorFunc from '../monitor-funcs/monitorFunc';
 
 const MonitorButton = ({ functional }) => {

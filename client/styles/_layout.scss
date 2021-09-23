@@ -1,6 +1,6 @@
 .app-container {
   max-width: 100rem;
-  margin: 3rem auto;
+  margin: 4rem auto;
   background-color: var(--color-grey-light-3);
   box-shadow: var(--box-shadow);
   flex-wrap: wrap;
@@ -81,6 +81,7 @@
 }
 
 .graphic-element {
+  min-width: 80rem;
   padding-left: 3rem;
   padding-right: 3rem;
   padding-bottom: 3rem;

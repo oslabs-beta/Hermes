@@ -1,20 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 import { alertSearchBoxState } from '../atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25rem',
-    },
-  },
-}));
-
-export default function BasicTextFields() {
-  const classes = useStyles();
+export default function AlertSearchBox() {
   const [alertSearchBox, setAlertSearchBox] =
     useRecoilState(alertSearchBoxState);
   const handleChange = (event) => {
@@ -23,9 +12,11 @@ export default function BasicTextFields() {
   };
   return (
     <TextField
-      className={classes.root}
       id='standard-basic'
       label='Search by Alert Name'
+      variant='outlined'
+      size='small'
+      style={{ marginLeft: '1rem', width: '20rem' }}
       onChange={handleChange}
     />
   );

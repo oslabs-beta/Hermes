@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import EditorContainer from './EditorContainer';
-import { Link } from '@material-ui/core';
+import { Link } from '@mui/material';
 import {
   indexPatternsState,
   createAlertInputState,
@@ -123,21 +123,21 @@ export default function FormDialog() {
   const frequencyConverter = (frequency, value) => {
     let adjustedFrequency = frequency;
     switch (value) {
-    case 'day(s)':
-      adjustedFrequency *= 86400 * 1000;
-      break;
-    case 'hour(s)':
-      adjustedFrequency *= 3600 * 1000;
-      break;
-    case 'minute(s)':
-      adjustedFrequency *= 60 * 1000;
-      break;
-    case 'second(s)':
-      adjustedFrequency *= 1000;
-      break;
-    default:
-      console.log('Error in frequencyConverter');
-      break;
+      case 'day(s)':
+        adjustedFrequency *= 86400 * 1000;
+        break;
+      case 'hour(s)':
+        adjustedFrequency *= 3600 * 1000;
+        break;
+      case 'minute(s)':
+        adjustedFrequency *= 60 * 1000;
+        break;
+      case 'second(s)':
+        adjustedFrequency *= 1000;
+        break;
+      default:
+        console.log('Error in frequencyConverter');
+        break;
     }
     return adjustedFrequency;
   };
@@ -159,16 +159,20 @@ export default function FormDialog() {
   };
   return (
     <div>
-      <Button
-        style={{
-          background:
-            'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
-          color: '#faf9f9',
-        }}
-        onClick={handleClickOpen}
-      >
-        Create Alert
-      </Button>
+      <div className='text-and-button'>
+        <p>Configure a new email alert:</p>
+        <Button
+          style={{
+            background:
+              'linear-gradient( to right bottom, var(--color-card-primary), var(--color-primary-light))',
+            color: '#faf9f9',
+            marginLeft: '1rem',
+          }}
+          onClick={handleClickOpen}
+        >
+          Create New Alert
+        </Button>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -178,7 +182,7 @@ export default function FormDialog() {
       >
         <DialogTitle id='form-dialog-title'>Create Alert</DialogTitle>
         <DialogContent>
-          <DialogContentText margin='dense'>
+          <DialogContentText>
             Configure your alert details below.
           </DialogContentText>
           <div className='create-alert-details'>
@@ -197,15 +201,17 @@ export default function FormDialog() {
             <SelectBox
               optionsArray={indexPatterns}
               labelText='Index Pattern'
+              requiredProp={true}
               valueProp={lastChosenIndexPattern}
               handleChange={handleDropdownChange}
-              styleProp={{ marginLeft: '.25rem' }}
+              styleProp={{ marginLeft: '.25rem', marginRight: '.25rem' }}
               inputLabelId='index-pattern-dropdown-label'
               selectId='index-pattern-dropdown'
             />
             <SelectBox
               optionsArray={numbers}
               labelText='Monitoring Frequency'
+              requiredProp={true}
               valueProp={monitorFrequency}
               handleChange={handleMonitorFrequencyChange}
               styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
@@ -215,6 +221,7 @@ export default function FormDialog() {
             <SelectBox
               optionsArray={units}
               labelText='Unit'
+              requiredProp={true}
               valueProp={createAlertInput.monitorFrequencyUnit}
               handleChange={handleMonitorFrequencyUnitChange}
               styleProp={{ marginRight: '.25rem', marginLeft: '.25rem' }}
@@ -222,7 +229,7 @@ export default function FormDialog() {
               selectId='monitor-frequency-unit-dropdown'
             />
           </div>
-          <DialogContentText margin='dense'>
+          <DialogContentText marginBottom='1rem' marginTop='0.5rem'>
             Use the editor below to enter the customized rule for your alert.
           </DialogContentText>
           <div className='editor-container-div'>
@@ -249,7 +256,7 @@ export default function FormDialog() {
               size='small'
               required
               margin='normal'
-              label='Subject'
+              label='Email Subject'
               id='emailSubject'
               variant='outlined'
               className='create-alert-input'
@@ -257,8 +264,40 @@ export default function FormDialog() {
               onChange={handleChange}
               style={{ marginRight: '.25rem', marginLeft: '.25rem' }}
             />
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              label='Email Subject'
+              id='emailSubject'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.emailSubject}
+              onChange={handleChange}
+              style={{
+                marginRight: '.25rem',
+                marginLeft: '.25rem',
+                zIndex: '-1',
+              }}
+            />
+            <TextField
+              size='small'
+              required
+              margin='normal'
+              label='Email Subject'
+              id='emailSubject'
+              variant='outlined'
+              className='create-alert-input'
+              value={createAlertInput.emailSubject}
+              onChange={handleChange}
+              style={{
+                marginRight: '.25rem',
+                marginLeft: '.25rem',
+                zIndex: '-1',
+              }}
+            />
           </div>
-          <DialogContentText margin='dense'>
+          <DialogContentText marginBottom='1rem' marginTop='0.5rem'>
             In the email body, you can use&nbsp;
             <Link
               href='https://mustache.github.io/mustache.5.html'

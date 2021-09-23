@@ -1,20 +1,6 @@
-.index-titler{
-    color: black;
-    font-size:1.4rem;
-    
-}
-
-.index-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 40vh;
-    min-width: 60%;
-    padding: 5rem;
-    margin: 1rem auto;
-    background-color:whitesmoke;
-    gap: 2rem;
+.index-title {
+  color: black;
+  font-size: 1.4rem;
 }
 
 .indices {
@@ -23,30 +9,18 @@
   width: 100%;
 }
 
-.sources-container{
-display: flex;
-flex-direction: column;
-align-items: center;
-    color: black;
-    padding: 2rem;
-    font-size: .8rem;
+.sources-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  padding: 2rem;
+  font-size: 0.8rem;
 }
 
-// .index-patterns{
-//     display: flex;
-//     align-items: center
-// }
-
-// .alerts-display-header{
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
-
-.delete-indexes{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
+.index-pattern-input {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 3rem;
 }
-

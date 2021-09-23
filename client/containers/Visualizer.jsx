@@ -28,6 +28,7 @@ const Visualizer = () => {
       <header className='visualizer-header'></header>
       <SelectBox
         optionsArray={indexPatterns}
+        requiredProp={true}
         labelText='Index Pattern'
         valueProp={lastChosenIndexPattern}
         handleChange={handleDropdownChange}
