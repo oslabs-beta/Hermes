@@ -39,7 +39,7 @@ export const createAlertInputState = atom({
     emailAddress: '',
     emailSubject: '',
     emailBody:
-      'Within the last hour, there was at least one log with "ERROR" in it. The message was: {{log}}',
+      'Within the last hour, there was at least one log with "ERROR" in it. The top hit contained the following log: {{log}}',
     editorContents: `{
   "bool": {
     "must": [

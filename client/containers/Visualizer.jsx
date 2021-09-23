@@ -29,6 +29,8 @@ const Visualizer = () => {
       <div className='white-box' id='visualizer-white-box'>
         <div className='text-and-button alert-inputs'>
           <p>Select an index pattern:</p>
+        </div>
+        <div className='text-and-button alert-inputs'>
           <SelectBox
             optionsArray={indexPatterns}
             requiredProp={true}
@@ -36,7 +38,7 @@ const Visualizer = () => {
             valueProp={lastChosenIndexPattern}
             handleChange={handleDropdownChange}
             styleProp={{
-              marginLeft: '1rem',
+              width: '30rem',
               selfAlign: 'center',
               marginTop: '.8rem',
             }}
