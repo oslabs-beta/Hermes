@@ -68,8 +68,8 @@ Running Hermes the first time:
 
 1. Create a new Gmail account.
 2. Open settings and disable Two-Factor Authentication and allow access in Gmail for less secure apps. Configuring these settings will allow Hermes to send emails on your behalf.
-3. Open the `email_smtp.js` file located in the top directory of your cloned repository
-4. Enter your new email `Username` and `Password` into the object passed into `Email.send()`
+3. Open the `email_smtp.js` file located in the top directory of your cloned repository.
+4. Enter your new password into `Password` and your new email address into the `Username` and `From` properties of the object passed into `Email.send()`
 
 ---
 

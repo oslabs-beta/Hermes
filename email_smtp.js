@@ -1,10 +1,10 @@
 function sendEmail(recipient, subject, body) {
   Email.send({
     Host: 'smtp.gmail.com',
-    Username: 'hermesalerting@gmail.com',
-    Password: 'Codesmith1',
+    Username: '',
+    Password: '',
     To: recipient,
-    From: 'hermesalerting@gmail.com',
+    From: '',
     Subject: subject,
     Body: body,
   });
