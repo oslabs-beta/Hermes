@@ -203,7 +203,7 @@ export default function CollapsibleTable() {
           border: 'hidden',
           margin: 0,
           marginTop: '3rem',
-          backgroundColor: 'whitesmoke',
+          backgroundColor: '#e9e9e9',
         }}
       >
         <TableHead>

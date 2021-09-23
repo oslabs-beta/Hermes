@@ -12,7 +12,7 @@ export default function SimpleTable({ rows, title, alignment }) {
     <TableContainer component={Paper}>
       <Table
         sx={{ minWidth: 650 }}
-        style={{ border: 'hidden', margin: 0, backgroundColor: 'whitesmoke' }}
+        style={{ border: 'hidden', margin: 0, backgroundColor: '#e9e9e9' }}
         size='small'
         aria-label='a dense table'
       >
