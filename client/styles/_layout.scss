@@ -1,0 +1,93 @@
+.app-container {
+  max-width: 100rem;
+  margin: 3rem auto;
+  background-color: var(--color-grey-light-3);
+  box-shadow: var(--box-shadow);
+  flex-wrap: wrap;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.header {
+  height: 7rem;
+  background-color: var(--color-black);
+  border-bottom: var(--color-grey-light-2);
+  flex: 0 1 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    color: var(--color-primary-gold);
+    font-size: 4rem;
+    font-weight: 500;
+  }
+  img {
+    height: 4rem;
+    margin: 0 1rem;
+  }
+  #title {
+    margin: 0 1rem;
+  }
+}
+
+.header-buttons {
+  margin-right: 3rem;
+}
+
+#hidden-button {
+  z-index: -1;
+  margin-left: 3rem;
+  margin-right: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  :link,
+  :visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    border-radius: 10%;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.6rem;
+    color: #000;
+  }
+}
+
+// .features{
+// display: flex;
+// justify-self: flex-end;
+// color: gold;
+// font-size: 1.6rem;
+// }
+
+.home {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-left: 3rem;
+}
+
+.graphic-element {
+  min-width: 80rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 3rem;
+}
+
+.outer-page {
+  margin-bottom: 4rem;
+}
