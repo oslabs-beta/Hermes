@@ -23,61 +23,61 @@ const Nav = () => {
       <nav className='navigation__nav'>
         {toggle && (
           <ul className='navigation__list'>
-            <Link to='/'>
+            <div>
               <li className='navigation__item'>
-                <a
-                  href='#'
+                <Link
+                  to='/'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
                   <span>Dashboard</span>
-                </a>
+                </Link>
               </li>
-            </Link>
-            <Link to='/alertsManager'>
+            </div>
+            <div>
               <li className='navigation__item'>
-                <a
-                  href='#'
+                <Link
+                  to='/alertsManager'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
                   <span>Manage Alerts</span>
-                </a>
+                </Link>
               </li>
-            </Link>
-            <Link to='/logs'>
+            </div>
+            <div>
               <li className='navigation__item'>
-                <a
-                  href='#'
+                <Link
+                  to='/logs'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
                   <span>View Logs</span>
-                </a>
+                </Link>
               </li>
-            </Link>
-            <Link to='/visualizer'>
+            </div>
+            <div>
               <li className='navigation__item'>
-                <a
-                  href='#'
+                <Link
+                  to='/visualizer'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
                   <span>Visualize Logs</span>
-                </a>
+                </Link>
               </li>
-            </Link>
-            <Link to='/indices'>
+            </div>
+            <div>
               <li className='navigation__item'>
-                <a
-                  href='#'
+                <Link
+                  to='/indices'
                   className='navigation__link'
                   onClick={() => setToggle(!toggle)}
                 >
                   <span>Manage Index Patterns</span>
-                </a>
+                </Link>
               </li>
-            </Link>
+            </div>
           </ul>
         )}
       </nav>

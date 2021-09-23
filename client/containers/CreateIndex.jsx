@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import {useAxios} from '../hooks/useAxios';
-import Indices from '../components/Indices';
+import SimpleTable from '../components/SimpleTable';
 import SelectBox from '../components/SelectBox';
 import { TextField, Button } from '@mui/material';
 import { indexPatternsState, lastChosenIndexPatternState } from '../atom';
@@ -16,10 +15,6 @@ const CreateIndex = () => {
 
   const [input, setInput] = useState('');
 
-  // const [patterns, setPatterns] = useState([]);
-
-  const [marked, setMarked] = useState('');
-
   useEffect(() => {
     axios
       .get('/indexpatterns')
@@ -27,19 +22,11 @@ const CreateIndex = () => {
       .catch((error) => console.log('Error in CreateAlert useEffect: ', error));
   }, []);
 
-  // useEffect(() => {
-  //   fetch('/indexpatterns')
-  //     .then((res) => res.json())
-  //     .then((res) => setPatterns(res));
-
-  //   console.log('Error in effect');
-  // }, []); //
-
   useEffect(() => {
     fetch('/logs/esindices')
       .then((res) => res.json())
       .then((res) => setAlias(res));
-  }, [setAlias]);
+  }, []);
 
   // handle change func passed down to the index pattern select box
   const handleDropdownChange = (event) => {
@@ -49,7 +36,7 @@ const CreateIndex = () => {
   const arr = [];
 
   for (let key in alias) {
-    arr.push(key);
+    if (key[0] !== '.') arr.push(key);
   }
 
   function poster(data) {
@@ -63,6 +50,8 @@ const CreateIndex = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setIndexPatterns(data);
+        setLastChosenIndexPattern(input);
+        setInput('');
       })
       .catch((err) => console.log('Error in poster:', err));
   }
@@ -78,6 +67,7 @@ const CreateIndex = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setIndexPatterns(data);
+        setLastChosenIndexPattern('');
       })
 
       .catch((err) => console.log('Error in deleter function:', err));
@@ -92,7 +82,7 @@ const CreateIndex = () => {
   }
 
   return (
-    <div className='index-page'>
+    <div className='outer-page'>
       <header className='page-header'>Manage Index Patterns</header>
       <div className='white-box'>
         <p className='alert-inputs'>
@@ -147,17 +137,19 @@ const CreateIndex = () => {
               marginTop: '.8rem',
               marginLeft: '2rem',
             }}
-            onClick={() => deleter({ indexPattern: input })}
+            onClick={() => deleter({ indexPattern: lastChosenIndexPattern })}
           >
             Delete
           </Button>
         </div>
         <div className='sources-container'>
-          <h1>Existing Elasticsearch Indices</h1>
-          {arr &&
-            arr.map((ele, i) => {
-              return <Indices key={i} name={ele} />;
-            })}
+          {arr && (
+            <SimpleTable
+              rows={arr}
+              title={'Existing Elasticsearch Indices'}
+              alignment='center'
+            />
+          )}
         </div>
       </div>
     </div>

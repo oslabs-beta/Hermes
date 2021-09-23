@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useAxios } from '../hooks/useAxios';
 import { logState } from '../atom';
-import 'tui-grid/dist/tui-grid.css';
-import Row from '../components/Row';
+import { TextField } from '@mui/material';
+import SelectBox from '../components/SelectBox';
+import SimpleTable from '../components/SimpleTable';
 
 const LogsContainer = () => {
   const [field, setField] = useState('*');
@@ -42,37 +42,45 @@ const LogsContainer = () => {
   const selectArr = Array.from(seter);
   return (
     <div className='log-page-container'>
-      <div className='filter-box'>
-        <button type='button'>add filter</button>
-        <select name='fields' onChange={(e) => setField(e.target.value)}>
-          {selectArr.map((field, i) => {
-            return <option key={i}>{field}</option>;
-          })}
-        </select>
-        <input
-          type='text'
-          className='filter-input'
-          placeholder='value'
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </div>
-      <div className='logs'>
-        <header className='logs-display-header'></header>
-
-        <div id='logs-container'>
-          <div id='table-div'>
-            <table>
-              <tr>
-                <th className='more-info'>More Info</th>
-                <th className='more-info'>Logs</th>
-              </tr>
-              {arr.map((log, i) => (
-                <Row log={log} key={i} />
-              ))}
-            </table>
+      <header className='page-header'>View Logs</header>
+      <div className='white-box'>
+        <p className='alert-inputs'>
+          Filter logs by inputting a value that must be included in the selected
+          field:
+        </p>
+        <div className='index-pattern-input'>
+          <SelectBox
+            optionsArray={selectArr}
+            labelText='Field'
+            requiredProp={false}
+            valueProp={field}
+            handleChange={(e) => setField(e.target.value)}
+            styleProp={{ width: '15rem' }}
+            inputLabelId='field-dropdown-label'
+            selectId='field-dropdown'
+          />
+          <TextField
+            size='small'
+            margin='normal'
+            label='Field Value'
+            id='filter-input'
+            variant='outlined'
+            className='filter-input'
+            style={{ width: '15rem', marginLeft: '0.5rem' }}
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          />
+        </div>
+        <div className='logs'>
+          <header className='logs-display-header'></header>
+          <div id='logs-container'>
+            <div className='sources-container'>
+              {arr && (
+                <SimpleTable title={'Logs'} rows={arr} alignment='left' />
+              )}
+            </div>
           </div>
         </div>
       </div>

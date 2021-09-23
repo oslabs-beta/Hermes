@@ -24,19 +24,28 @@ const Visualizer = () => {
   }, []);
 
   return (
-    <div className='visualizer-container'>
-      <header className='visualizer-header'></header>
-      <SelectBox
-        optionsArray={indexPatterns}
-        requiredProp={true}
-        labelText='Index Pattern'
-        valueProp={lastChosenIndexPattern}
-        handleChange={handleDropdownChange}
-        styleProp={{ marginLeft: '.25rem' }}
-        inputLabelId='index-pattern-dropdown-label'
-        selectId='index-pattern-dropdown'
-      />
-      <UserLineChart />
+    <div className='outer-page'>
+      <header className='page-header'>Visualize Logs</header>
+      <div className='white-box' id='visualizer-white-box'>
+        <div className='text-and-button alert-inputs'>
+          <p>Select an index pattern:</p>
+          <SelectBox
+            optionsArray={indexPatterns}
+            requiredProp={true}
+            labelText='Index Pattern'
+            valueProp={lastChosenIndexPattern}
+            handleChange={handleDropdownChange}
+            styleProp={{
+              marginLeft: '1rem',
+              selfAlign: 'center',
+              marginTop: '.8rem',
+            }}
+            inputLabelId='index-pattern-dropdown-label'
+            selectId='index-pattern-dropdown'
+          />
+        </div>
+        <UserLineChart lastChosenIndexPattern={lastChosenIndexPattern} />
+      </div>
     </div>
   );
 };

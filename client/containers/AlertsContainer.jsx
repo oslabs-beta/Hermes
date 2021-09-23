@@ -2,7 +2,6 @@ import React from 'react';
 import Alerts from '../components/Alerts';
 import CreateAlert from '../components/CreateAlert';
 import AlertSearchBox from '../components/AlertSearchBox';
-import { DialogContentText } from '@mui/material';
 
 const AlertsContainer = () => {
   return (

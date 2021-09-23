@@ -1,6 +1,6 @@
 .app-container {
   max-width: 100rem;
-  margin: 4rem auto;
+  margin: 3rem auto;
   background-color: var(--color-grey-light-3);
   box-shadow: var(--box-shadow);
   flex-wrap: wrap;
@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .header {
@@ -74,10 +76,9 @@
 
 .filter-box {
   display: flex;
-  border-radius: 3px;
-  // outline: .05rem solid black;
   align-items: center;
   width: 100%;
+  margin-left: 3rem;
 }
 
 .graphic-element {
@@ -85,4 +86,8 @@
   padding-left: 3rem;
   padding-right: 3rem;
   padding-bottom: 3rem;
+}
+
+.outer-page {
+  margin-bottom: 4rem;
 }
