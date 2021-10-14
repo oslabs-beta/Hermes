@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.jsx",
   "scripts": {
+    "test": "jest --verbose",
     "start": "node server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js --ignore '*.json'\""
@@ -39,6 +40,7 @@
     "cors": "^2.8.5",
     "esbuild": "^0.12.25",
     "express": "^4.17.1",
+    "jest": "^27.2.1",
     "mustache": "^4.2.0",
     "node-fetch": "^3.0.0",
     "nodemon": "^2.0.12",
@@ -65,6 +67,7 @@
     "sass": "^1.37.5",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
+    "supertest": "^6.1.6",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   }
